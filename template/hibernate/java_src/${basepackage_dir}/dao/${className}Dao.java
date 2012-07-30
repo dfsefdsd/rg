@@ -1,8 +1,8 @@
-<#include "/java_copyright.include">
+﻿<#include "/java_copyright.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first>   
 package ${basepackage}.dao;
-
+111
 <#include "/java_imports.include">
 
 import static cn.org.rapid_framework.util.ObjectUtils.*;
