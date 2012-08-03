@@ -51,6 +51,7 @@ public class Generator {
 	private String excludes = System.getProperty("generator.excludes"); // 不需要处理的模板，使用逗号分隔符,示例值: java_src/**,java_test/**
 	private String sourceEncoding =  System.getProperty("generator.sourceEncoding","UTF-8");
 	private String outputEncoding =  System.getProperty("generator.outputEncoding","UTF-8");
+	private static final GeneratorUtil gh = new GeneratorUtil();
 	
 	public Generator() {
 	}
@@ -193,6 +194,7 @@ public class Generator {
 	
 	private class TemplateProcessor {
 		private GeneratorControl gg = new GeneratorControl();
+		
 		private void executeGenerate(File templateRootDir,Map templateModel, Map filePathModel ,File srcFile) throws SQLException, IOException,TemplateException {
 			String templateFile = FileHelper.getRelativePath(templateRootDir, srcFile);
 			if(GeneratorHelper.isIgnoreTemplateProcess(srcFile, templateFile,includes,excludes)) {
@@ -252,6 +254,7 @@ public class Generator {
 	
 		private void processTemplateForGeneratorControl(Map templateModel,String templateFile) throws IOException, TemplateException {
 			templateModel.put("gg", gg);
+			templateModel.put("gh", gh);
 			Template template = getFreeMarkerTemplate(templateFile);
 			template.process(templateModel, IOHelper.NULL_WRITER);
 		}

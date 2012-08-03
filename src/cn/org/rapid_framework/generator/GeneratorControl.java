@@ -14,20 +14,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import org.postgresql.translation.messages_cs;
 import org.xml.sax.InputSource;
 
+import cn.org.rapid_framework.generator.ext.MyMethod;
+import cn.org.rapid_framework.generator.ext.Parameter;
 import cn.org.rapid_framework.generator.provider.db.table.TableFactory;
 import cn.org.rapid_framework.generator.provider.db.table.model.Column;
 import cn.org.rapid_framework.generator.util.FileHelper;
 import cn.org.rapid_framework.generator.util.GLogger;
 import cn.org.rapid_framework.generator.util.IOHelper;
 import cn.org.rapid_framework.generator.util.SqlExecutorHelper;
+import cn.org.rapid_framework.generator.util.StringHelper;
 import cn.org.rapid_framework.generator.util.SystemHelper;
 import cn.org.rapid_framework.generator.util.XMLHelper;
 import freemarker.ext.dom.NodeModel;
@@ -245,6 +252,8 @@ public class GeneratorControl {
 			}
 			GeneratorProperties.setProperty(key, v);
 		}
+	
+		
 		return v;
 	}
 	
@@ -261,30 +270,5 @@ public class GeneratorControl {
 	public void setDeleteGeneratedFile(boolean deleteGeneratedFile) {
 		this.deleteGeneratedFile = deleteGeneratedFile;
 	}
-	/**
-	 * 是否存在指定的配置，配置在generator.xml中，例如，<entry key="basepackage">com.company.project</entry>
-	 * @param methodName
-	 * @return
-	 */
-	public boolean isConfigExists(String configName) {
-		String configValue=GeneratorProperties.props.getProperty(configName,"");
-		if(configValue==null||"".equals(configValue.trim())){
-			return false;
-		}
-		return true;
-	}
-	/**
-	 * 由给定的配置名取得配置值
-	 * @param configName
-	 * @return
-	 * @throws Exception 
-	 */
-	public String[]  getConfigValue(String configName) throws Exception {
-		String configValue=GeneratorProperties.props.getProperty(configName,"");	
-		if(configValue==null||"".equals(configValue.trim())){
-			throw new Error();
-		}
-		
-		return configValue.split(",");
-	}
+
 }

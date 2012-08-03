@@ -1,0 +1,22 @@
+以下信息配置在 /gm_soa/resources/remote-servlet.xml
+
+	<bean name="addToService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.company.project.AddToService" />
+		<property name="serviceInterface" value="com.company.project.AddToServiceRemote" />
+	</bean>
+	
+	
+以下信息配置在/mvo/src/main/resources/common_remoting.xml
+
+	<bean id="addToServiceClient" class="com.gm.gmremoting.support.GmRemotingProxyFactoryBean">
+		<property name="supportFactory" ref="hessianSupportFactory"></property>		
+		<property name="serviceUrl" value="${gmsoa.remote.url}/gm_soa/remote/addToService" />
+		<property name="serviceInterface" value="com.company.project.AddToServiceRemote" />
+	</bean>
+	
+	
+	
+	    public String getAccessType(String aa)
+		    aa
+	

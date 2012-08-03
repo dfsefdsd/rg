@@ -1,0 +1,27 @@
+以下信息配置在 /gm_soa/resources/remote-servlet.xml
+
+	<bean name="${gh.uncapitalize(gh.getConfigSingleValue("MyClassName"))}Service"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="${basepackage}.${MyClassName}Service" />
+		<property name="serviceInterface" value="${basepackage}.${MyClassName}ServiceRemote" />
+	</bean>
+	
+	
+以下信息配置在/mvo/src/main/resources/common_remoting.xml
+
+	<bean id="${gh.uncapitalize(gh.getConfigSingleValue("MyClassName"))}ServiceClient" class="com.gm.gmremoting.support.GmRemotingProxyFactoryBean">
+		<property name="supportFactory" ref="hessianSupportFactory"></property>		
+		<property name="serviceUrl" value="${'$'}{gmsoa.remote.url}/gm_soa/remote/${gh.uncapitalize(gh.getConfigSingleValue("MyClassName"))}Service" />
+		<property name="serviceInterface" value="${basepackage}.${MyClassName}ServiceRemote" />
+	</bean>
+	
+	
+	
+	<#list gh.getConfigMethods("add") as mothod>
+	    ${mothod.defineStr}
+		<#list mothod.paras as para>
+		    ${para.paramName}
+		</#list>
+	
+	</#list>
+	
