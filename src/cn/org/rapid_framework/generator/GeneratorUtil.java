@@ -59,6 +59,10 @@ public class GeneratorUtil {
 	public String uncapitalize(String str){
 		return StringHelper.uncapitalize(str);
 	}
+	
+	public String lower(String str){
+		return str.toLowerCase();
+	}
 	/**
 	 * 
 	 * @param configName
