@@ -5,14 +5,17 @@
 		代码生成器配置文件: 
 		1.会为所有的property生成property_dir属性,如pkg=com.company => pkg_dir=com/company
 		2.可以引用环境变量: ${env.JAVA_HOME} or System.properties: ${user.home},property之间也可以相互引用
+	
+	<!-- oracle需要指定jdbc.schema,其它数据库忽略此项配置  -->
+	jdbc.schema
+	
 	</comment>
 	
-	<entry key="basepackage">com.company.project</entry>
 
 	<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
 	<entry key="namespace">pages</entry>
 	
-	<entry key="outRoot">generator-output</entry>
+	<entry key="outRoot">D:\generator-output</entry>
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
 	<entry key="tableRemovePrefixes"></entry>
@@ -20,16 +23,16 @@
 	<entry key="jdbc.username">APP_VO</entry>
 	<entry key="jdbc.password">APP_VO</entry>
 		
-	<!-- oracle需要指定jdbc.schema,其它数据库忽略此项配置  -->
+	<entry key="basepackage">gmc</entry>
 	<entry key="jdbc.schema">GM_PORTAL</entry>
 	<entry key="jdbc.catalog"></entry>
 	
 	<!-- 数据库类型映射  -->
-	<entry key="java_typemapping.java.sql.Timestamp">java.util.Date</entry>
-	<entry key="java_typemapping.java.sql.Date">java.util.Date</entry>
-	<entry key="java_typemapping.java.sql.Time">java.util.Date</entry>	
-	<entry key="java_typemapping.java.lang.Byte">Integer</entry>
-	<entry key="java_typemapping.java.lang.Short">Integer</entry>
+	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
+	<entry key="java_typemapping.java.sql.Date">Date</entry>
+	<entry key="java_typemapping.java.sql.Time">Date</entry>	
+	<entry key="java_typemapping.java.lang.Byte">Long</entry>
+	<entry key="java_typemapping.java.lang.Short">Long</entry>
 	<entry key="java_typemapping.java.math.BigDecimal">Long</entry>
 
 	<!-- H2 
@@ -85,6 +88,4 @@
 	<entry key="jdbc.url">jdbc:derby://localhost/databaseName</entry>
 	<entry key="jdbc.driver">org.apache.derby.jdbc.ClientDriver</entry>	
 	-->
-	<entry key="add">public String getAccessType(String aa)</entry>
-	<entry key="MyClassName">AddTo</entry>
 </properties>

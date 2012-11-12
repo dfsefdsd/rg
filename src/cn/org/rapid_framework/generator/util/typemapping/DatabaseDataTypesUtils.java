@@ -52,42 +52,42 @@ public class DatabaseDataTypesUtils {
 				&& decimalDigits == 0) {
 			if (size == 1) {
 				// https://sourceforge.net/tracker/?func=detail&atid=415993&aid=662953&group_id=36044
-				return "java.lang.Boolean";
+				return "Boolean";
 			} else if (size < 3) {
-				return "java.lang.Byte";
+				return "Byte";
 			} else if (size < 5) {
-				return "java.lang.Short";
+				return "Short";
 			} else if (size < 10) {
-				return "java.lang.Integer";
+				return "Integer";
 			} else if (size < 19) {
-				return "java.lang.Long";
+				return "Long";
 			} else {
 				return "java.math.BigDecimal";
 			}
 		}
 		String result = _preferredJavaTypeForSqlType.getString(sqlType);
 		if (result == null) {
-			result = "java.lang.Object";
+			result = "Object";
 		}
 		return result;
 	}
 		   
    static {
-      _preferredJavaTypeForSqlType.put(Types.TINYINT, "java.lang.Byte");
-      _preferredJavaTypeForSqlType.put(Types.SMALLINT, "java.lang.Short");
-      _preferredJavaTypeForSqlType.put(Types.INTEGER, "java.lang.Integer");
-      _preferredJavaTypeForSqlType.put(Types.BIGINT, "java.lang.Long");
-      _preferredJavaTypeForSqlType.put(Types.REAL, "java.lang.Float");
-      _preferredJavaTypeForSqlType.put(Types.FLOAT, "java.lang.Double");
-      _preferredJavaTypeForSqlType.put(Types.DOUBLE, "java.lang.Double");
+      _preferredJavaTypeForSqlType.put(Types.TINYINT, "Byte");
+      _preferredJavaTypeForSqlType.put(Types.SMALLINT, "Short");
+      _preferredJavaTypeForSqlType.put(Types.INTEGER, "Integer");
+      _preferredJavaTypeForSqlType.put(Types.BIGINT, "Long");
+      _preferredJavaTypeForSqlType.put(Types.REAL, "Float");
+      _preferredJavaTypeForSqlType.put(Types.FLOAT, "Double");
+      _preferredJavaTypeForSqlType.put(Types.DOUBLE, "Double");
       _preferredJavaTypeForSqlType.put(Types.DECIMAL, "java.math.BigDecimal");
       _preferredJavaTypeForSqlType.put(Types.NUMERIC, "java.math.BigDecimal");
-      _preferredJavaTypeForSqlType.put(Types.BIT, "java.lang.Boolean");
-      _preferredJavaTypeForSqlType.put(Types.BOOLEAN, "java.lang.Boolean");
-      _preferredJavaTypeForSqlType.put(Types.CHAR, "java.lang.String");
-      _preferredJavaTypeForSqlType.put(Types.VARCHAR, "java.lang.String");
+      _preferredJavaTypeForSqlType.put(Types.BIT, "Boolean");
+      _preferredJavaTypeForSqlType.put(Types.BOOLEAN, "Boolean");
+      _preferredJavaTypeForSqlType.put(Types.CHAR, "String");
+      _preferredJavaTypeForSqlType.put(Types.VARCHAR, "String");
       // according to resultset.gif, we should use java.io.Reader, but String is more convenient for EJB
-      _preferredJavaTypeForSqlType.put(Types.LONGVARCHAR, "java.lang.String");
+      _preferredJavaTypeForSqlType.put(Types.LONGVARCHAR, "String");
       _preferredJavaTypeForSqlType.put(Types.BINARY, "byte[]");
       _preferredJavaTypeForSqlType.put(Types.VARBINARY, "byte[]");
       _preferredJavaTypeForSqlType.put(Types.LONGVARBINARY, "byte[]");
@@ -98,8 +98,8 @@ public class DatabaseDataTypesUtils {
       _preferredJavaTypeForSqlType.put(Types.BLOB, "java.sql.Blob");
       _preferredJavaTypeForSqlType.put(Types.ARRAY, "java.sql.Array");
       _preferredJavaTypeForSqlType.put(Types.REF, "java.sql.Ref");
-      _preferredJavaTypeForSqlType.put(Types.STRUCT, "java.lang.Object");
-      _preferredJavaTypeForSqlType.put(Types.JAVA_OBJECT, "java.lang.Object");
+      _preferredJavaTypeForSqlType.put(Types.STRUCT, "Object");
+      _preferredJavaTypeForSqlType.put(Types.JAVA_OBJECT, "Object");
    }
 		
    private static class IntStringMap extends HashMap {

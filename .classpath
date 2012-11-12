@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="lib/ojdbc14.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-8.4-701.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/sqljdbc.jar"/>
+	<classpathentry kind="lib" path="lib/swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/AbsoluteLayout.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

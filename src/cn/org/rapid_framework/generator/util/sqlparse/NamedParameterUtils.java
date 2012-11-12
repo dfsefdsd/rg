@@ -90,7 +90,7 @@ public abstract class NamedParameterUtils {
 			}
 			char c = statement[i];
 			// || c == '#' || c == '$' add by badqiu
-			if (c == ':' || c == '&' || c == '#' || c == '$') {
+			if (c == ':' || c == '&' || c == '#' ) {
 				int j = i + 1;
 				if (j < statement.length && statement[j] == ':' && c == ':') {
 					// Postgres-style "::" casting operator - to be skipped.
