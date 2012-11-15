@@ -1,32 +1,45 @@
-package ${basepackage};
-import java.io.Serializable;
-<#assign className= table.className>    
-public class ${className}VO implements Serializable{
-	<#list table.columns as column>
-	private ${column.javaType} ${column.columnNameLower}=null;
-	</#list>
+package ${basepackage}.service.remote;
 
-	<#list table.columns as column>
-	public void set${column.columnName}(${column.javaType} value) {
-		this.${column.columnNameLower} = value;
-	}
-	
-	public ${column.javaType} get${column.columnName}() {
-		return this.${column.columnNameLower};
-	}
-	</#list>
-	
-	public String toString(){
-		StringBuilder result=new StringBuilder();
-		result.append(super.toString());
-		result.append(":{");
-		<#list table.columns as column>
-		result.append("${column.columnNameLower}=");
-		result.append(${column.columnNameLower});
-		<#if column_has_next>
-		result.append(",");
-		</#if>    
-		</#list>
-		result.append("}");
-	}
+import com.gm.soa.vo.buyinglead.PaginationCondition;
+import com.gm.soa.common.vo.PaginationVO;
+import com.gm.soa.common.SoaException;
+
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>  
+
+public interface ${className}ServiceRemote {
+    
+    /**
+     * 新增记录
+     */
+    public Long add${className}(${className}VO ${classNameFirstLower}VO,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    /**
+     * 删除记录
+     */
+    public boolean delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    
+    /**
+     * 根据id查询记录
+     */
+    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    
+    /**
+     * 查询记录
+     */
+    public PaginationVO<${className}VO> getPagination${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    /**
+     * 查询总数
+     */
+    public int getTotal${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    
+    /**
+     * 修改记录
+     */
+    public boolean update${className}ByParam(${className}VO setParam,${className}VO whereParam,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    
+    /**
+     * 更新记录
+     */
+    public boolean update${className}ById(<#list table.columns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    
 }

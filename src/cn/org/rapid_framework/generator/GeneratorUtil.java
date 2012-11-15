@@ -171,4 +171,20 @@ public class GeneratorUtil {
 			throw new Error();
 		}		
 	}
+	
+	public  String worksUpperCase(String sqlName,String splite) {
+		String[] strs = sqlName.toLowerCase().split(splite);
+		String result = "";
+		String preStr = "";
+		for(int i = 0; i < strs.length; i++) {
+			if(preStr.length() == 1) {
+				result += strs[i];
+			}else {
+				result += StringHelper.capitalize(strs[i]);
+			}
+			preStr = strs[i];
+		}
+		return result;
+	}
+
 }

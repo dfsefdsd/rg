@@ -49,6 +49,7 @@ public class GeneratorMain {
 																// ${param}
 																// :param 几种占位符
 		sqlo.setTableSqlName("ImInqRecipients");
+		
 
 		sqlo.setMultiplicity("many"); // many or one,用于控制查询结果是one,many
 		sqlo.setOperation("findByUsernameAndPassword");

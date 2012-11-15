@@ -1,6 +1,7 @@
-package ${basepackage};
+package ${basepackage}.vo;
 import java.io.Serializable;
 <#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>  
 public class ${className}VO implements Serializable{
 	<#list table.columns as column>
 	private ${column.javaType} ${column.columnNameLower}=null;
@@ -15,7 +16,7 @@ public class ${className}VO implements Serializable{
 		return this.${column.columnNameLower};
 	}
 	</#list>
-	
+	@Override
 	public String toString(){
 		StringBuilder result=new StringBuilder();
 		result.append(super.toString());
@@ -28,5 +29,6 @@ public class ${className}VO implements Serializable{
 		</#if>    
 		</#list>
 		result.append("}");
+		return result.toString();
 	}
 }

@@ -51,7 +51,7 @@ public class mainFrame extends javax.swing.JFrame {
 		jMenuBar2 = new javax.swing.JMenuBar();
 		jMenu3 = new javax.swing.JMenu();
 		jMenu4 = new javax.swing.JMenu();
-
+		schmme.setText("APP_VO");
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		jPanel1.setToolTipText("\u7531\u8868\u751f\u6210");
@@ -365,10 +365,12 @@ public class mainFrame extends javax.swing.JFrame {
 			result.setText("表名不能为空!");
 			return;
 		}
+		
 		this.generator.setEnabled(false);
 		try {
 
 			GeneratorFacade g = new GeneratorFacade();
+			g.deleteOutRootDir();
 			g.generateByTable(tableName, "template/bytable/gmc");
 			//打开文件夹
 			Runtime.getRuntime().exec(
@@ -399,6 +401,7 @@ public class mainFrame extends javax.swing.JFrame {
 			}
 			this.generateBysql.setEnabled(false);
 			GeneratorFacade g = new GeneratorFacade();
+			g.deleteOutRootDir();
 			Sql sqlo = new SqlFactory().parseSql(sql); //同时支持 #param# $param$ #{param} ${param} :param 几种占位符  
 			sqlo.setTableSqlName(tableName);
 

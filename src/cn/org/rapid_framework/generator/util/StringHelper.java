@@ -135,6 +135,18 @@ public class StringHelper {
 			}
 			preStr = strs[i];
 		}
+		
+		strs = result.split("\\$");
+		result = "";
+		preStr = "";
+		for(int i = 0; i < strs.length; i++) {
+			if(preStr.length() == 1) {
+				result += strs[i];
+			}else {
+				result += capitalize(strs[i]);
+			}
+			preStr = strs[i];
+		}
 		return result;
 	}
 	

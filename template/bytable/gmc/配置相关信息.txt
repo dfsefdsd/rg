@@ -1,0 +1,19 @@
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>  
+
+以下信息配置在 /gm_soa/resources/remote-servlet.xml
+
+	<bean name="${classNameFirstLower}Service"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="${basepackage}.${className}ServiceImpl" />
+		<property name="serviceInterface" value="${basepackage}.${className}ServiceRemote" />
+	</bean>
+	
+	
+以下信息配置在/mvo/src/main/resources/common_remoting.xml
+
+	<bean id="${classNameFirstLower}ServiceClient" class="com.gm.gmremoting.support.GmRemotingProxyFactoryBean">
+		<property name="supportFactory" ref="hessianSupportFactory"></property>		
+		<property name="serviceUrl" value="${'$'}{gmsoa.remote.url}/gm_soa/remote/${className}Service" />
+		<property name="serviceInterface" value="${basepackage}.${className}ServiceRemote" />
+	</bean>

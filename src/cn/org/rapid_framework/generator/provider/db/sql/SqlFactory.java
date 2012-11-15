@@ -121,7 +121,17 @@ public class SqlFactory {
 	        for(int i = 1; i <= metadata.getColumnCount(); i++) {
 	        	Column c = convert2Column(sql,metadata, i);
 	        	if(c == null) throw new IllegalStateException("column must be not null");
-				columns.add(c);
+	        	if(c.isPk()){
+	        		columns.add(c);
+	        	}
+	        }
+	        
+	        for(int i = 1; i <= metadata.getColumnCount(); i++) {
+	        	Column c = convert2Column(sql,metadata, i);
+	        	if(c == null) throw new IllegalStateException("column must be not null");
+	        	if(!c.isPk()){
+	        		columns.add(c);
+	        	}
 	        }
 			return columns;
 		}
