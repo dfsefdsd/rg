@@ -24,6 +24,11 @@ public class ${className}ServiceRemoteTest extends SoaBaseTest {
     	Long currentUserId=0L;
     	
     	${className}VO ${classNameFirstLower}VO=new ${className}VO();
+    	
+    	<#list table.columns as column>
+    	${classNameFirstLower}VO.set${column.columnName}(null);
+    	</#list>
+    	
     	Long result=${classNameFirstLower}Service.add${className}(${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId);
     	Assert.assertFalse(result==null);
     }
@@ -71,7 +76,7 @@ public class ${className}ServiceRemoteTest extends SoaBaseTest {
     	${column.javaType} ${column.columnNameLower}=null;
     	</#list>
     	
-    	PaginationVO<${className}VO> result=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,pc,currentCompId,currentContactId,currentUserId);
+    	PaginationVO<${className}VO> result=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,pc,currentCompId,currentContactId,currentUserId);
      	Assert.assertFalse(result.getTotal()==0);
     	
     }
@@ -89,24 +94,8 @@ public class ${className}ServiceRemoteTest extends SoaBaseTest {
     	${column.javaType} ${column.columnNameLower}=null;
     	</#list>
     	
-    	int result=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+    	int result=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     	Assert.assertFalse(result==0);
-    }
-    
-    /**
-     * 修改记录
-     */
-    @Test
-    public void testUpdate${className}ByParam()throws Exception{
-    	
-    	Long currentCompId=0L;
-    	Long currentContactId=0L;
-    	Long currentUserId=0L;
-    	
-    	${className}VO setParam=new ${className}VO();
-    	${className}VO whereParam=new ${className}VO();
-    	boolean result=${classNameFirstLower}Service.update${className}ByParam(setParam,whereParam,currentCompId,currentContactId,currentUserId);
-    	Assert.assertFalse(!result);
     }
     
     /**

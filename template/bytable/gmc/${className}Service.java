@@ -1,4 +1,4 @@
-package com.gm.gmportal.mygm.${mvoPackage}.service;
+package com.gm.soa.service.${soaCorePackage};
 
 <#assign className= table.className>    
 <#assign classNameFirstLower= table.classNameFirstLower>   
@@ -6,133 +6,170 @@ package com.gm.gmportal.mygm.${mvoPackage}.service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gm.gmcore.annotation.GmAutowired;
-import com.gm.soa.common.util.DateUtil;
+import com.gm.soa.common.SoaException;
 import com.gm.soa.common.vo.PaginationVO;
+import com.gm.soa.constants.ErrorCode;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
-import com.gm.gmportal.mygm.common.constants.CommonConstants;
 import com.gm.soa.vo.${soaCorePackage}.${className}VO;
+import com.gm.soa.dao.${soaSrcPackage}.${className}DAO;
 import com.gm.soa.remote.${soaCorePackage}.${className}ServiceRemote;
 
 
 @Service
-@GmAutowired
-public class ${className}Service{
+public class ${className}Service implements ${className}ServiceRemote{
 	
 	private static Logger logger = LoggerFactory.getLogger(${className}Service.class); 
-
-    private ${className}ServiceRemote ${classNameFirstLower}ServiceClient;
+	
+    @Autowired
+    private ${className}DAO ${classNameFirstLower}DAO;
     
     /**
      * 新增记录
      */
-    public Map<String, Object> add${className}(<#list table.columns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	
-    	${className}VO ${classNameFirstLower}VO=new ${className}VO();
-    	
-    	<#list table.columns as column>
-    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
-    	</#list>
-    	Long id=${classNameFirstLower}ServiceClient.add${className}(${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId);
-    	
-    	if(id==null){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    		result.put(CommonConstants.DATA,id);
-    	}
-    	return result;
+    @Override
+    public Long add${className}(${className}VO ${classNameFirstLower}VO,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : add${className}: ${classNameFirstLower}VO={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId});
+    	try{
+	    	Long result=${classNameFirstLower}DAO.add${className}(${classNameFirstLower}VO);
+	    	logger.info("End function : add${className}");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
     }
     
     /**
      * 删除记录
      */
-    public Map<String, Object> delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.delete${className}ById(id,currentCompId,currentContactId,currentUserId);
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
-    	return result;
+    @Override
+    public boolean delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : delete${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
+    	try{
+	    	boolean result=${classNameFirstLower}DAO.delete${className}ById(id);
+	    	logger.info("End function : delete${className}ById");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		}  	
     }
     
     /**
      * 根据id查询记录
      */
-    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	${className}VO vo=${classNameFirstLower}ServiceClient.get${className}ById(id,currentCompId,currentContactId,currentUserId);
-    	return vo;
+    @Override
+    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : get${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
+    	try{
+	        ${className}VO result=${classNameFirstLower}DAO.get${className}ById(id);
+	        logger.info("End function : get${className}ById");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
     }
     
     /**
      * 查询记录
      */
-    public Map<String, Object> getPagination${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	PaginationVO<${className}VO> vos=${classNameFirstLower}ServiceClient.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId);
-       
-		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	
-    	if(vos.getTotal()==0){
-    		result.put(CommonConstants.TOTAL,0);
-    	}else{
-    		Map<String, Object> adata=null;
-    		List<Map<String, Object>> list =new ArrayList<Map<String, Object>>();
-    		if(vos.getItems()==null){
-    			result.put(CommonConstants.DATA,null);
-    		}else{
-    		    for(${className}VO vo:vos.getItems()){
-    		    	adata = new HashMap<String, Object>();
-    		    	
-    		    	<#list table.columns as column>
-    		    	<#if column.javaType=="Date">
-    		    	adata.put("${column.columnNameLower}",DateUtil.formatDate(vo.get${column.columnName}(), DateUtil.SIMPLE_DATE_FORMAT));
-    		    	<#else>
-    		    	adata.put("${column.columnNameLower}",vo.get${column.columnName}());
-    		    	</#if>
-    		    	</#list>
-    		    	
-    		    	list.add(adata);
-    		    }
-    		    result.put(CommonConstants.DATA,list);
-    		}
-    	}
-    	return result;
+    @Override
+    public PaginationVO<${className}VO> getPagination${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : getPagination${className}ByParam: <#list table.queryColumns as column>${column.columnNameLower}={},</#list>pc={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.queryColumns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId});
+    	${className}VO ${classNameFirstLower}VO=new ${className}VO();
+    	<#list table.queryColumns as column>
+    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
+    	</#list>
+    	try{
+	    	PaginationVO<${className}VO> result=new PaginationVO<${className}VO>();
+	        Map<String, Object> paramMap = new HashMap<String, Object>();
+	        result.setPageNum(pc.getPageNum());
+	        result.setPageSize(pc.getPageSize());
+	        
+	        int total = getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+	        result.setTotal(total);
+	
+	        result.setMaxPage(total/pc.getPageSize()+(total%pc.getPageSize())>0?1:0);
+	        if(total!=0){
+	        	List<${className}VO> list=${classNameFirstLower}DAO.get${className}ListByParam(${classNameFirstLower}VO,pc);
+	        	result.setItems(list);
+	        }
+	        logger.info("End function : getPagination${className}ByParam");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
     }
     /**
      * 查询总数
      */
-    public Map<String, Object> getTotal${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	int total=${classNameFirstLower}ServiceClient.getTotal${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId);
-    	result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	result.put(CommonConstants.DATA,total);	
-    	return result;
+    @Override
+    public int getTotal${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : getTotal${className}ByParam: <#list table.queryColumns as column>${column.columnNameLower}={},</#list>currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.queryColumns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId});
+    	${className}VO ${classNameFirstLower}VO=new ${className}VO();
+    	<#list table.queryColumns as column>
+    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
+    	</#list>
+    	try{
+	    	int result=${classNameFirstLower}DAO.getTotal${className}ByParam(${classNameFirstLower}VO);
+	    	logger.info("End function : getTotal${className}ByParam");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
     }
     
     /**
      * 更新记录
      */
-    public Map<String, Object> update${className}ById(<#list table.columns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    @Override
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>,<#list table.updateColumns as column>${column.columnNameLower}={},<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
+    	${className}VO ${classNameFirstLower}VO=new ${className}VO();  
+    	<#list table.updateColumns as column>
+    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
+    	</#list>
     	
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.update${className}ById(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    	
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
-    	return result;
+    	try{
+	    	boolean result=${classNameFirstLower}DAO.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,${classNameFirstLower}VO);
+	    	logger.info("End function : update${className}ById");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
     }
     
 }

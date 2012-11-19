@@ -16,6 +16,8 @@
 	mvoPackage
 	soaCorePackage
 	soaSrcPackage
+	queryFields
+	updateFields
 	
 	</comment>
 
@@ -34,6 +36,8 @@
 	<entry key="autoGenFile">true</entry>
 	<entry key="tableName">im$table</entry>
 	<entry key="coverFile">true</entry>
+	<entry key="queryFields"></entry>
+	<entry key="updateFields"></entry>
                                     
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->

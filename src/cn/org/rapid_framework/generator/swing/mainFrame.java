@@ -30,16 +30,24 @@ public class mainFrame extends javax.swing.JFrame {
 		initComponents();
 		initConfig();
 	}
-	
-	private void initConfig(){
-		this.schmme.setText(GeneratorProperties.getRequiredProperty("jdbc.schema"));
-		this.sequenceName.setText(GeneratorProperties.getRequiredProperty("sequenceName"));
-		this.autoGenFile.setSelected("true".equals(GeneratorProperties.getRequiredProperty("autoGenFile")));
-		this.coverFile.setSelected("true".equals(GeneratorProperties.getRequiredProperty("coverFile")));
-		this.table.setText(GeneratorProperties.getRequiredProperty("tableName"));
-		this.mvoPackage.setText(GeneratorProperties.getRequiredProperty("mvoPackage"));
-		this.soaCorePackage.setText(GeneratorProperties.getRequiredProperty("soaCorePackage"));
-		this.soaSrcPackage.setText(GeneratorProperties.getRequiredProperty("soaSrcPackage"));
+
+	private void initConfig() {
+		this.schmme.setText(GeneratorProperties
+				.getRequiredProperty("jdbc.schema"));
+		this.sequenceName.setText(GeneratorProperties
+				.getRequiredProperty("sequenceName"));
+		this.autoGenFile.setSelected("true".equals(GeneratorProperties
+				.getRequiredProperty("autoGenFile")));
+		this.coverFile.setSelected("true".equals(GeneratorProperties
+				.getRequiredProperty("coverFile")));
+		this.table
+				.setText(GeneratorProperties.getRequiredProperty("tableName"));
+		this.mvoPackage.setText(GeneratorProperties
+				.getRequiredProperty("mvoPackage"));
+		this.soaCorePackage.setText(GeneratorProperties
+				.getRequiredProperty("soaCorePackage"));
+		this.soaSrcPackage.setText(GeneratorProperties
+				.getRequiredProperty("soaSrcPackage"));
 
 	}
 
@@ -54,6 +62,8 @@ public class mainFrame extends javax.swing.JFrame {
 		schmme = new javax.swing.JTextField();
 		jLabel6 = new javax.swing.JLabel();
 		sequenceName = new javax.swing.JTextField();
+		jLabel8 = new javax.swing.JLabel();
+		updateFields = new javax.swing.JTextField();
 		jPanel4 = new javax.swing.JPanel();
 		jScrollPane1 = new javax.swing.JScrollPane();
 		sql = new javax.swing.JTextArea();
@@ -70,6 +80,8 @@ public class mainFrame extends javax.swing.JFrame {
 		soaSrcPackage = new javax.swing.JTextField();
 		autoGenFile = new javax.swing.JRadioButton();
 		coverFile = new javax.swing.JRadioButton();
+		jLabel7 = new javax.swing.JLabel();
+		queryFields = new javax.swing.JTextField();
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
 		jMenu2 = new javax.swing.JMenu();
@@ -108,6 +120,14 @@ public class mainFrame extends javax.swing.JFrame {
 		sequenceName.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent evt) {
 				sequenceNameFocusLost(evt);
+			}
+		});
+
+		jLabel8.setText("\u66f4\u65b0\u5b57\u6bb5:");
+
+		updateFields.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				updateFieldsFocusLost(evt);
 			}
 		});
 
@@ -157,8 +177,21 @@ public class mainFrame extends javax.swing.JFrame {
 																				sequenceName,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
 																				82,
+																				javax.swing.GroupLayout.PREFERRED_SIZE))
+														.addGroup(
+																jPanel1Layout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(
+																				jLabel8)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				updateFields,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				684,
 																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addContainerGap(379, Short.MAX_VALUE)));
+										.addContainerGap(45, Short.MAX_VALUE)));
 		jPanel1Layout
 				.setVerticalGroup(jPanel1Layout
 						.createParallelGroup(
@@ -200,9 +233,24 @@ public class mainFrame extends javax.swing.JFrame {
 																								23,
 																								Short.MAX_VALUE))
 																		.addGap(
-																				219,
-																				219,
-																				219)
+																				18,
+																				18,
+																				18)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.BASELINE)
+																						.addComponent(
+																								jLabel8)
+																						.addComponent(
+																								updateFields,
+																								javax.swing.GroupLayout.PREFERRED_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.PREFERRED_SIZE))
+																		.addGap(
+																				186,
+																				186,
+																				186)
 																		.addComponent(
 																				generator)
 																		.addGap(
@@ -389,20 +437,63 @@ public class mainFrame extends javax.swing.JFrame {
 										coverFile)).addContainerGap(13,
 						Short.MAX_VALUE)));
 
+		jLabel7.setText("\u67e5\u8be2\u5b57\u6bb5:");
+
+		queryFields.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				queryFieldsFocusLost(evt);
+			}
+		});
+
 		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(
 				jPanel3);
 		jPanel3.setLayout(jPanel3Layout);
-		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				jPanel3Layout.createSequentialGroup().addComponent(jPanel2,
-						javax.swing.GroupLayout.PREFERRED_SIZE,
-						javax.swing.GroupLayout.DEFAULT_SIZE,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(78, Short.MAX_VALUE)));
+		jPanel3Layout
+				.setHorizontalGroup(jPanel3Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jPanel2,
+								javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE)
+						.addGroup(
+								jPanel3Layout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(jLabel7)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(
+												queryFields,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												686,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(58, Short.MAX_VALUE)));
+		jPanel3Layout
+				.setVerticalGroup(jPanel3Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel3Layout
+										.createSequentialGroup()
+										.addComponent(
+												jPanel2,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(
+												jPanel3Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jLabel7)
+														.addComponent(
+																queryFields,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(70, Short.MAX_VALUE)));
 
 		jMenu1.setText("File");
 		jMenuBar1.add(jMenu1);
@@ -476,15 +567,26 @@ public class mainFrame extends javax.swing.JFrame {
 												javax.swing.GroupLayout.PREFERRED_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(16, Short.MAX_VALUE)));
+										.addContainerGap(
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)));
 
 		jTabbedPane1.getAccessibleContext()
 				.setAccessibleName("generateBytable");
 
 		pack();
-		
 	}// </editor-fold>
 	//GEN-END:initComponents
+
+	private void updateFieldsFocusLost(java.awt.event.FocusEvent evt) {
+		GeneratorProperties.getProperties().setProperty("updateFields",
+				this.updateFields.getText().trim());
+	}
+
+	private void queryFieldsFocusLost(java.awt.event.FocusEvent evt) {
+		GeneratorProperties.getProperties().setProperty("queryFields",
+				this.queryFields.getText().trim());
+	}
 
 	private void sequenceNameFocusLost(java.awt.event.FocusEvent evt) {
 		GeneratorProperties.getProperties().setProperty("sequenceName",
@@ -540,7 +642,7 @@ public class mainFrame extends javax.swing.JFrame {
 					"cmd.exe /c start "
 							+ GeneratorProperties
 									.getRequiredProperty("outRoot"));
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -549,80 +651,94 @@ public class mainFrame extends javax.swing.JFrame {
 		this.generator.setEnabled(true);
 		this.result.setText("已生成");
 		copyFiles(tableName);
-		
+
 	}
-	
-	private void copyFiles(String tableName){
-		if(this.autoGenFile.isSelected()==true){
+
+	private void copyFiles(String tableName) {
+		if (this.autoGenFile.isSelected() == true) {
 			Table table = TableFactory.getInstance().getTable(tableName);
-			String outRoot=GeneratorProperties.getRequiredProperty("outRoot");
-			String mvoRoot=GeneratorProperties.getRequiredProperty("mvoRoot");
-			String soaRoot=GeneratorProperties.getRequiredProperty("soaRoot");
-			
-			Map<String,String> afile=null;
-			List<Map<String,String>> fileList=new ArrayList<Map<String,String>>();
-			
-			afile=new HashMap<String, String>();
+			String outRoot = GeneratorProperties.getRequiredProperty("outRoot");
+			String mvoRoot = GeneratorProperties.getRequiredProperty("mvoRoot");
+			String soaRoot = GeneratorProperties.getRequiredProperty("soaRoot");
+
+			Map<String, String> afile = null;
+			List<Map<String, String>> fileList = new ArrayList<Map<String, String>>();
+
+			afile = new HashMap<String, String>();
 			afile.put("file", "VO.java");
-			afile.put("path", "\\core\\com\\gm\\soa\\vo\\"+GeneratorProperties.getRequiredProperty("soaCorePackage")+"\\");
+			afile.put("path", "\\core\\com\\gm\\soa\\vo\\"
+					+ GeneratorProperties.getRequiredProperty("soaCorePackage")
+					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
-			afile=new HashMap<String, String>();
+
+			afile = new HashMap<String, String>();
 			afile.put("file", "ServiceRemote.java");
-			afile.put("path", "\\core\\com\\gm\\soa\\remote\\"+GeneratorProperties.getRequiredProperty("soaCorePackage")+"\\");
+			afile.put("path", "\\core\\com\\gm\\soa\\remote\\"
+					+ GeneratorProperties.getRequiredProperty("soaCorePackage")
+					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
-			afile=new HashMap<String, String>();
+
+			afile = new HashMap<String, String>();
 			afile.put("file", "ServiceRemoteTest.java");
-			afile.put("path", "\\test\\com\\gm\\soa\\remote\\"+GeneratorProperties.getRequiredProperty("soaCorePackage")+"\\");
+			afile.put("path", "\\test\\com\\gm\\soa\\remote\\"
+					+ GeneratorProperties.getRequiredProperty("soaCorePackage")
+					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
 
-			afile=new HashMap<String, String>();
+			afile = new HashMap<String, String>();
 			afile.put("file", "DAO.java");
-			afile.put("path", "\\src\\com\\gm\\soa\\dao\\"+GeneratorProperties.getRequiredProperty("soaSrcPackage")+"\\");
+			afile.put("path", "\\src\\com\\gm\\soa\\dao\\"
+					+ GeneratorProperties.getRequiredProperty("soaSrcPackage")
+					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
-			afile=new HashMap<String, String>();
-			afile.put("file", "ServiceImpl.java");
-			afile.put("path", "\\src\\com\\gm\\soa\\service\\"+GeneratorProperties.getRequiredProperty("soaSrcPackage")+"\\");
-			afile.put("root", soaRoot);
-			fileList.add(afile);
-			
-			afile=new HashMap<String, String>();
-			afile.put("file", "Controller.java");
-			afile.put("path", "\\"+GeneratorProperties.getRequiredProperty("mvoPackage")+"\\controller\\");
-			afile.put("root", mvoRoot);
-			fileList.add(afile);
-			
-			afile=new HashMap<String, String>();
+
+			afile = new HashMap<String, String>();
 			afile.put("file", "Service.java");
-			afile.put("path", "\\"+GeneratorProperties.getRequiredProperty("mvoPackage")+"\\service\\");
+			afile.put("path", "\\src\\com\\gm\\soa\\service\\"
+					+ GeneratorProperties.getRequiredProperty("soaSrcPackage")
+					+ "\\");
+			afile.put("root", soaRoot);
+			fileList.add(afile);
+
+			afile = new HashMap<String, String>();
+			afile.put("file", "Controller.java");
+			afile.put("path", "\\"
+					+ GeneratorProperties.getRequiredProperty("mvoPackage")
+					+ "\\controller\\");
 			afile.put("root", mvoRoot);
 			fileList.add(afile);
 
-			for (Map<String,String> fileMap : fileList) {
-				File file =new File(outRoot+"\\"+table.getClassName()+fileMap.get("file"));
-				if(file.exists()){
-					String dest=fileMap.get("root")+fileMap.get("path")+table.getClassName()+fileMap.get("file");
-					File destFile=new File(dest);
-					if(destFile.exists()){
-						if((this.coverFile.isSelected()==true)){
+			afile = new HashMap<String, String>();
+			afile.put("file", "VOService.java");
+			afile.put("path", "\\"
+					+ GeneratorProperties.getRequiredProperty("mvoPackage")
+					+ "\\service\\");
+			afile.put("root", mvoRoot);
+			fileList.add(afile);
+
+			for (Map<String, String> fileMap : fileList) {
+				File file = new File(outRoot + "\\" + table.getClassName()
+						+ fileMap.get("file"));
+				if (file.exists()) {
+					String dest = fileMap.get("root") + fileMap.get("path")
+							+ table.getClassName() + fileMap.get("file");
+					File destFile = new File(dest);
+					if (destFile.exists()) {
+						if ((this.coverFile.isSelected() == true)) {
 							destFile.delete();
 							file.renameTo(destFile);
 						}
-						
-					}else{
+
+					} else {
 						file.renameTo(destFile);
 					}
 				}
 			}
-			
-			
+
 		}
 	}
 
@@ -690,6 +806,8 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JLabel jLabel5;
 	private javax.swing.JLabel jLabel6;
+	private javax.swing.JLabel jLabel7;
+	private javax.swing.JLabel jLabel8;
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
 	private javax.swing.JMenu jMenu3;
@@ -704,6 +822,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTabbedPane jTabbedPane1;
 	private javax.swing.JTextField mvoPackage;
+	private javax.swing.JTextField queryFields;
 	private javax.swing.JLabel result;
 	private javax.swing.JTextField schmme;
 	private javax.swing.JTextField sequenceName;
@@ -711,6 +830,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField soaSrcPackage;
 	private javax.swing.JTextArea sql;
 	private javax.swing.JTextField table;
+	private javax.swing.JTextField updateFields;
 	// End of variables declaration//GEN-END:variables
 
 }

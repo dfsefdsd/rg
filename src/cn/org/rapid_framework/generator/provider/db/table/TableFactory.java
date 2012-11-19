@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -164,10 +165,47 @@ public class TableFactory {
 			table.initExportedKeys(conn.getMetaData());
 			table.initImportedKeys(conn.getMetaData());
 			BeanHelper.copyProperties(table, TableOverrideValuesProvider.getTableOverrideValues(table.getSqlName()));
+			setExtColumns(table);
 			return table;
 		}catch(SQLException e) {
 			throw new RuntimeException("create table object error,tableName:"+realTableName,e);
 		}
+	}
+	
+	private void setExtColumns(Table table){
+		LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
+		LinkedHashSet<Column> updateColumns = new LinkedHashSet<Column>();
+		LinkedHashSet<Column> columns = table.getColumns();
+		String queryFields[]=GeneratorProperties.getRequiredProperty("queryFields").trim().split(",");
+		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
+		for(Column column:columns){
+			for(int i=0;i<queryFields.length;i++){
+				if(column.getSqlName().equalsIgnoreCase(queryFields[i])){
+					queryColumns.add(column);
+				}
+			}
+			
+			for(int i=0;i<updateFields.length;i++){
+				if(column.getSqlName().equalsIgnoreCase(updateFields[i])){
+					updateColumns.add(column);
+				}
+			}
+		}
+		table.setQueryColumns(queryColumns);
+		table.setUpdateColumns(updateColumns);
+		
+		if(queryFields.length==0){
+			table.setQueryColumns(columns);
+		}
+		if(updateFields.length==0){
+			LinkedHashSet<Column> temp = table.getColumns();
+			for(Column column:table.getNotPkColumns()){
+				temp.add(column);
+			}
+			
+			table.setUpdateColumns(temp);
+		}
+		
 	}
 	
 	private List getAllTables(Connection conn) throws SQLException {

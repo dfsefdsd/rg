@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 import cn.org.rapid_framework.generator.ext.MyMethod;
 import cn.org.rapid_framework.generator.ext.Parameter;
 import cn.org.rapid_framework.generator.util.StringHelper;
-import freemarker.template.utility.StringUtil;
 
 public class GeneratorUtil {
+
 	/**
 	 * 是否存在指定的配置，配置在generator.xml中，例如，<entry key="basepackage">com.company.project</entry>
 	 * @param methodName

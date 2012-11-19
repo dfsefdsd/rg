@@ -421,7 +421,7 @@ public class Sql {
 		String removedPrefixSqlName = Table.removeTableSqlNamePrefix(tableSqlName);
 		return StringHelper.makeAllWordFirstLetterUpperCase(StringHelper.toUnderscoreName(removedPrefixSqlName));
 	}
-
+	
 	public Column getColumnBySqlName(String sqlName) {
 		for(Column c : getColumns()) {
 			if(c.getSqlName().equalsIgnoreCase(sqlName)) {
@@ -445,4 +445,27 @@ public class Sql {
 	
 	private String ibatisSql;
 	private String ibatis3Sql;
+	
+    /**
+	 * 根据tableSqlName和成相对应的tableClassName,主要用途路径变量引用.如${tableClassName}Dao.java
+	 * @return
+	 */
+	public String getClassName() {
+		return getTableClassName();
+	}
+	/**
+	 * 返回值为getClassName()的第一个字母小写,如className=UserInfo,则ClassNameFirstLower=userInfo
+	 * @return
+	 */
+	public String getClassNameFirstLower() {
+		return StringHelper.uncapitalize(getClassName());
+	}
+	
+	/**
+	 * 等价于getClassName().toLowerCase()
+	 * @return
+	 */
+	public String getClassNameLowerCase() {
+		return getClassName().toLowerCase();
+	}
 }

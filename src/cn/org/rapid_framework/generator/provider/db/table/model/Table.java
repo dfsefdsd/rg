@@ -23,7 +23,25 @@ public class Table {
 	/** the name of the owner of the synonym if this table is a synonym */
 	private String ownerSynonymName = null;
 	LinkedHashSet<Column> columns = new LinkedHashSet<Column>();
+	LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
+	LinkedHashSet<Column> updateColumns = new LinkedHashSet<Column>();
 	List<Column> primaryKeyColumns = new ArrayList<Column>();
+	
+	public LinkedHashSet<Column> getQueryColumns() {
+		return queryColumns;
+	}
+
+	public void setQueryColumns(LinkedHashSet<Column> queryColumns) {
+		this.queryColumns = queryColumns;
+	}
+
+	public LinkedHashSet<Column> getUpdateColumns() {
+		return updateColumns;
+	}
+
+	public void setUpdateColumns(LinkedHashSet<Column> updateColumns) {
+		this.updateColumns = updateColumns;
+	}
 	
 	public Table() {}
 	
@@ -37,6 +55,8 @@ public class Table {
 		this.tableAlias = t.getTableAlias();
 		this.exportedKeys = t.exportedKeys;
 		this.importedKeys = t.importedKeys;
+		this.queryColumns=t.queryColumns;
+		this.updateColumns=t.updateColumns;
 	}
 	
 	public LinkedHashSet<Column> getColumns() {

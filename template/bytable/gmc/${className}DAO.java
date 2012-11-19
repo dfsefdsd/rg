@@ -122,7 +122,7 @@ public class ${className}DAO {
      */
     public List<${className}VO> get${className}ListByParam(${className}VO ${classNameFirstLower}VO,PaginationCondition pc)throws Exception{
     	
-        logger.info("In function : get${className}ByParam: ${classNameFirstLower}VO={},pc={}", new Object[]{${classNameFirstLower}VO,pc});
+        logger.info("In function : get${className}ListByParam: ${classNameFirstLower}VO={},pc={}", new Object[]{${classNameFirstLower}VO,pc});
         Map<String, Object> paramMap = new HashMap<String, Object>();
           
         StringBuilder sql = new StringBuilder();
@@ -133,7 +133,7 @@ public class ${className}DAO {
         logger.info(" About to execute sql={} paramMap={}", new Object[]{sqlstr, paramMap});
         List<${className}VO> result = baseDao.namedParameterJdbcTemplate.query(sqlstr, paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));  
         
-        logger.info("End function : get${className}ByParam");
+        logger.info("End function : get${className}ListByParam");
         return result;
     }
     
@@ -142,6 +142,7 @@ public class ${className}DAO {
      * 查询总数
      */
     public int getTotal${className}ByParam(${className}VO ${classNameFirstLower}VO) throws Exception{
+    	logger.info("In function : getTotal${className}ByParam: ${classNameFirstLower}VO={}", new Object[]{${classNameFirstLower}VO});
     	StringBuilder sql=new StringBuilder();
     	sql.append("SELECT COUNT(1) FROM ${gh.lower(table.sqlName)} WHERE 1=1 ");
     	Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -150,7 +151,7 @@ public class ${className}DAO {
         logger.info(" About to execute sql={} paramMap={}",new Object[]{sql.toString(), paramMap});
         int result = baseDao.namedParameterJdbcTemplate.queryForInt(sql.toString(), paramMap);
         
-        logger.info(" End Function: ImMessageDAO.getTotalByLabelAndMessageType");
+        logger.info(" End Function: getTotal${className}ByParam");
         return result;
     }
     
@@ -160,7 +161,7 @@ public class ${className}DAO {
      */
     public boolean update${className}ByParam(${className}VO setParam,${className}VO whereParam) throws Exception{
     	
-        logger.info("In function : update${className} setParam={},whereParam={}", new Object[]{setParam,whereParam});
+        logger.info("In function : update${className}ByParam: setParam={},whereParam={}", new Object[]{setParam,whereParam});
         
         StringBuilder sql = new StringBuilder();
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -174,7 +175,7 @@ public class ${className}DAO {
         
         boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
 
-        logger.info("End function : update${className}");
+        logger.info("End function : update${className}ByParam");
         return result;
     }
     	
@@ -183,7 +184,7 @@ public class ${className}DAO {
      */
     public boolean update${className}ById(long id,${className}VO setParam) throws Exception{
     	
-        logger.info("In function : update${className}ById id={}", new Object[]{id});
+        logger.info("In function : update${className}ById: id={}", new Object[]{id});
         
         StringBuilder sql = new StringBuilder();
         Map<String, Object> paramMap = new HashMap<String, Object>();

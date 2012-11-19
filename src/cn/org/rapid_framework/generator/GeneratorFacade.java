@@ -204,6 +204,7 @@ public class GeneratorFacade {
 		public static GeneratorModel newFromSql(Sql sql) throws Exception {
 			Map templateModel = new HashMap();
 			templateModel.put("sql", sql);
+			templateModel.put("table", sql);
 			setShareVars(templateModel);
 			
 			Map filePathModel = new HashMap();
