@@ -27,67 +27,7 @@ public class ${className}VOService{
 	private static Logger logger = LoggerFactory.getLogger(${className}VOService.class); 
 
     private ${className}ServiceRemote ${classNameFirstLower}ServiceClient;
-    
-    <#if gh.fromTable>
-    /**
-     * 新增记录
-     */
-    public Map<String, Object> add${className}(<#list table.notPkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	
-    	logger.info("In function : add${className}: <#list table.notPkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.notPkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	
-    	${className}VO ${classNameFirstLower}VO=new ${className}VO();
-    	
-    	<#list table.notPkColumns as column>
-    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
-    	</#list>
-    	Long id=${classNameFirstLower}ServiceClient.add${className}(${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId);
-    	
-    	if(id==null){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    		result.put(CommonConstants.DATA,id);
-    	}
-    	logger.info("End function : add${className}");
-    	return result;
-    }
-    
-    /**
-     * 删除记录
-     */
-    public Map<String, Object> delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	logger.info("In function : delete${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
-    	
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.delete${className}ById(id,currentCompId,currentContactId,currentUserId);
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
-    	logger.info("End function : delete${className}ById");
-    	return result;
-    }
-    
-    /**
-     * 更新记录
-     */
-    public Map<String, Object> update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>,<#list table.updateColumns as column>${column.columnNameLower}={},<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    	
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
-    	logger.info("End function : update${className}ById");
-    	return result;
-    }
-    </#if>
+ 
     
     /**
      * 根据id查询记录

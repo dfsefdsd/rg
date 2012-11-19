@@ -23,7 +23,7 @@ public class ${className}DAO {
 	private static Logger logger = LoggerFactory.getLogger(${className}DAO.class); 
     @Autowired
     private BaseDao baseDao;
-    
+    <#if gh.fromTable>
     /**
      * 获取新的id
      */
@@ -32,17 +32,6 @@ public class ${className}DAO {
         StringBuilder sql = new StringBuilder("SELECT ${sequenceName}.nextval FROM DUAL");
         Long result = baseDao.jdbcTemplate.queryForLong(sql.toString());
         return result;
-    }
-    
-    private void putWhereParam(${className}VO ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
-    	if(${classNameFirstLower}VO!=null){  
-        	<#list table.columns as column>
-        	<#if column.javaType=="String">if(StringUtil.isNotEmpty(${classNameFirstLower}VO.get${column.columnName}()))<#else>if(${classNameFirstLower}VO.get${column.columnName}()!=null)</#if>{
-	            sql.append("   AND ${gh.lower(column.sqlName)}=:${column.columnNameLower} ");
-	            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get${column.columnName}());
-	        }
-        	</#list>
-        }
     }
     
     private void putUpdateParam(${className}VO ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
@@ -56,10 +45,6 @@ public class ${className}DAO {
         }
     }
     
-    private String getSelectSQL(){
-    	String sql="SELECT <#list table.columns as column>${gh.lower(column.sqlName)}<#if column_has_next>,</#if></#list> FROM ${gh.lower(table.sqlName)} WHERE 1=1 ";
-    	return sql;
-    }
     
     /**
      * 新增${className}记录
@@ -116,46 +101,6 @@ public class ${className}DAO {
         logger.info("End function : delete${className}ById");
         return result;
     }
-    
-    /**
-     * 查询${className}记录
-     */
-    public List<${className}VO> get${className}ListByParam(${className}VO ${classNameFirstLower}VO,PaginationCondition pc)throws Exception{
-    	
-        logger.info("In function : get${className}ListByParam: ${classNameFirstLower}VO={},pc={}", new Object[]{${classNameFirstLower}VO,pc});
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-          
-        StringBuilder sql = new StringBuilder();
-        sql.append(getSelectSQL());
-        
-        putWhereParam(${classNameFirstLower}VO,sql,paramMap);
-        String sqlstr=PaginationParams.convertSqlStatement(sql.toString(), pc, paramMap);
-        logger.info(" About to execute sql={} paramMap={}", new Object[]{sqlstr, paramMap});
-        List<${className}VO> result = baseDao.namedParameterJdbcTemplate.query(sqlstr, paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));  
-        
-        logger.info("End function : get${className}ListByParam");
-        return result;
-    }
-    
-    
-    /**
-     * 查询总数
-     */
-    public int getTotal${className}ByParam(${className}VO ${classNameFirstLower}VO) throws Exception{
-    	logger.info("In function : getTotal${className}ByParam: ${classNameFirstLower}VO={}", new Object[]{${classNameFirstLower}VO});
-    	StringBuilder sql=new StringBuilder();
-    	sql.append("SELECT COUNT(1) FROM ${gh.lower(table.sqlName)} WHERE 1=1 ");
-    	Map<String, Object> paramMap = new HashMap<String, Object>();
-    	putWhereParam(${classNameFirstLower}VO,sql,paramMap);
-    	//查询记录总数
-        logger.info(" About to execute sql={} paramMap={}",new Object[]{sql.toString(), paramMap});
-        int result = baseDao.namedParameterJdbcTemplate.queryForInt(sql.toString(), paramMap);
-        
-        logger.info(" End Function: getTotal${className}ByParam");
-        return result;
-    }
-    
-    
     /**
      * 修改${className}记录
      */
@@ -200,8 +145,72 @@ public class ${className}DAO {
 
         logger.info("End function : update${className}ById");
         return result;
+    }   
+	</#if>
+    
+    private void putWhereParam(${className}VO ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
+    	if(${classNameFirstLower}VO!=null){  
+        	<#list table.columns as column>
+        	<#if column.javaType=="String">if(StringUtil.isNotEmpty(${classNameFirstLower}VO.get${column.columnName}()))<#else>if(${classNameFirstLower}VO.get${column.columnName}()!=null)</#if>{
+	            sql.append("   AND ${gh.lower(column.sqlName)}=:${column.columnNameLower} ");
+	            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get${column.columnName}());
+	        }
+        	</#list>
+        }
+    }
+
+    
+    private String getSelectSQL(){
+        <#if gh.fromTable>
+    	String sql="SELECT <#list table.columns as column>${gh.lower(column.sqlName)}<#if column_has_next>,</#if></#list> FROM ${gh.lower(table.sqlName)} WHERE 1=1 ";
+    	<#else>
+        String sql="${table.sourceSql}";
+        </#if>
+    	return sql;
+    }
+  
+    /**
+     * 查询${className}记录
+     */
+    public List<${className}VO> get${className}ListByParam(${className}VO ${classNameFirstLower}VO,PaginationCondition pc)throws Exception{
+    	
+        logger.info("In function : get${className}ListByParam: ${classNameFirstLower}VO={},pc={}", new Object[]{${classNameFirstLower}VO,pc});
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+          
+        StringBuilder sql = new StringBuilder();
+        sql.append(getSelectSQL());
+        
+        putWhereParam(${classNameFirstLower}VO,sql,paramMap);
+        String sqlstr=PaginationParams.convertSqlStatement(sql.toString(), pc, paramMap);
+        logger.info(" About to execute sql={} paramMap={}", new Object[]{sqlstr, paramMap});
+        List<${className}VO> result = baseDao.namedParameterJdbcTemplate.query(sqlstr, paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));  
+        
+        logger.info("End function : get${className}ListByParam");
+        return result;
     }
     
+    
+    /**
+     * 查询总数
+     */
+    public int getTotal${className}ByParam(${className}VO ${classNameFirstLower}VO) throws Exception{
+    	logger.info("In function : getTotal${className}ByParam: ${classNameFirstLower}VO={}", new Object[]{${classNameFirstLower}VO});
+    	StringBuilder sql=new StringBuilder();
+    	 <#if gh.fromTable>
+    	sql.append("SELECT COUNT(1) FROM ${gh.lower(table.sqlName)} WHERE 1=1 ");
+    	<#else>
+    	sql.append("${gh.getConfigSingleValue('countSql')}");
+    	</#if>
+    	Map<String, Object> paramMap = new HashMap<String, Object>();
+    	putWhereParam(${classNameFirstLower}VO,sql,paramMap);
+    	//查询记录总数
+        logger.info(" About to execute sql={} paramMap={}",new Object[]{sql.toString(), paramMap});
+        int result = baseDao.namedParameterJdbcTemplate.queryForInt(sql.toString(), paramMap);
+        
+        logger.info(" End Function: getTotal${className}ByParam");
+        return result;
+    }
+
     /**
      * 根据id查询${className}记录
      */

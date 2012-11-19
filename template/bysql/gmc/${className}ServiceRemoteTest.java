@@ -14,57 +14,8 @@ import com.gm.soa.vo.${soaCorePackage}.${className}VO;
 public class ${className}ServiceRemoteTest extends SoaBaseTest { 
     @Autowired
     private ${className}ServiceRemote ${classNameFirstLower}Service;
-    <#if gh.fromTable>
-    /**
-     * 新增记录
-     */
-	@Test
-    public void testAdd${className}()throws Exception{
-    	Long currentCompId=0L;
-    	Long currentContactId=0L;
-    	Long currentUserId=0L;
-    	
-    	${className}VO ${classNameFirstLower}VO=new ${className}VO();
-    	
-    	<#list table.columns as column>
-    	${classNameFirstLower}VO.set${column.columnName}(null);
-    	</#list>
-    	
-    	Long result=${classNameFirstLower}Service.add${className}(${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId);
-    	Assert.assertFalse(result==null);
-    }
-    /**
-     * 删除记录
-     */
-    @Test
-    public void testDelete${className}ById()throws Exception{
-    	Long currentCompId=0L;
-    	Long currentContactId=0L;
-    	Long currentUserId=0L;
-    	
-        long id=0L;
-    	boolean result=${classNameFirstLower}Service.delete${className}ById(id,currentCompId,currentContactId,currentUserId);
-    	Assert.assertFalse(result);
-    }
+ 
     
-    /**
-     * 更新记录
-     */
-    @Test
-    public void testUpdate${className}ById()throws Exception{
-    	
-    	Long currentCompId=0L;
-    	Long currentContactId=0L;
-    	Long currentUserId=0L;
-    	
-    	long id=0L;
-    	<#list table.columns as column>
-    	${column.javaType} ${column.columnNameLower}=null;
-    	</#list>
-    	boolean result=${classNameFirstLower}Service.update${className}ById(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    	Assert.assertFalse(!result);
-    }
-    </#if>
     /**
      * 根据id查询记录
      */
@@ -116,4 +67,6 @@ public class ${className}ServiceRemoteTest extends SoaBaseTest {
     	int result=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     	Assert.assertFalse(result==0);
     }
+   
+    
 }

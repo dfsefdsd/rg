@@ -43,6 +43,15 @@ public class Sql {
 	String sqlmap; //for ibatis and ibatis3
 	
 	LinkedHashSet<Column> columns = new LinkedHashSet<Column>();
+	LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
+	public LinkedHashSet<Column> getQueryColumns() {
+		return queryColumns;
+	}
+
+	public void setQueryColumns(LinkedHashSet<Column> queryColumns) {
+		this.queryColumns = queryColumns;
+	}
+
 	LinkedHashSet<SqlParameter> params = new LinkedHashSet<SqlParameter>();
 	
 	String sourceSql; // source sql
@@ -195,6 +204,11 @@ public class Sql {
 	public LinkedHashSet<Column> getColumns() {
 		return columns;
 	}
+	
+	public LinkedHashSet<Column> getNotPkColumns() {
+		return columns;
+	}
+	
 	public void setColumns(LinkedHashSet<Column> columns) {
 		this.columns = columns;
 	}

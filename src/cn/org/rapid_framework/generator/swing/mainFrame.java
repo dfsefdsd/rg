@@ -14,6 +14,7 @@ import java.util.Map;
 
 import cn.org.rapid_framework.generator.GeneratorFacade;
 import cn.org.rapid_framework.generator.GeneratorProperties;
+import cn.org.rapid_framework.generator.GeneratorUtil;
 import cn.org.rapid_framework.generator.provider.db.sql.SqlFactory;
 import cn.org.rapid_framework.generator.provider.db.sql.model.Sql;
 import cn.org.rapid_framework.generator.provider.db.table.TableFactory;
@@ -32,22 +33,26 @@ public class mainFrame extends javax.swing.JFrame {
 	}
 
 	private void initConfig() {
-		this.schmme.setText(GeneratorProperties
-				.getRequiredProperty("jdbc.schema"));
+		this.schmme.setText(GeneratorProperties.getProperty("jdbc.schema"));
 		this.sequenceName.setText(GeneratorProperties
-				.getRequiredProperty("sequenceName"));
+				.getProperty("sequenceName"));
 		this.autoGenFile.setSelected("true".equals(GeneratorProperties
-				.getRequiredProperty("autoGenFile")));
+				.getProperty("autoGenFile")));
 		this.coverFile.setSelected("true".equals(GeneratorProperties
-				.getRequiredProperty("coverFile")));
-		this.table
-				.setText(GeneratorProperties.getRequiredProperty("tableName"));
-		this.mvoPackage.setText(GeneratorProperties
-				.getRequiredProperty("mvoPackage"));
+				.getProperty("coverFile")));
+		this.table.setText(GeneratorProperties.getProperty("tableName"));
+		this.mvoPackage.setText(GeneratorProperties.getProperty("mvoPackage"));
 		this.soaCorePackage.setText(GeneratorProperties
-				.getRequiredProperty("soaCorePackage"));
+				.getProperty("soaCorePackage"));
 		this.soaSrcPackage.setText(GeneratorProperties
-				.getRequiredProperty("soaSrcPackage"));
+				.getProperty("soaSrcPackage"));
+
+		this.queryFields
+				.setText(GeneratorProperties.getProperty("queryFields"));
+		this.updateFields.setText(GeneratorProperties
+				.getProperty("updateFields"));
+		this.sql.setText(GeneratorProperties.getProperty("sql"));
+		this.countSql.setText(GeneratorProperties.getProperty("countSql"));
 
 	}
 
@@ -68,6 +73,10 @@ public class mainFrame extends javax.swing.JFrame {
 		jScrollPane1 = new javax.swing.JScrollPane();
 		sql = new javax.swing.JTextArea();
 		generateBysql = new javax.swing.JButton();
+		jLabel9 = new javax.swing.JLabel();
+		jLabel10 = new javax.swing.JLabel();
+		jScrollPane2 = new javax.swing.JScrollPane();
+		countSql = new javax.swing.JTextArea();
 		jPanel3 = new javax.swing.JPanel();
 		jPanel2 = new javax.swing.JPanel();
 		jLabel2 = new javax.swing.JLabel();
@@ -271,6 +280,19 @@ public class mainFrame extends javax.swing.JFrame {
 			}
 		});
 
+		jLabel9.setText("\u5217\u8868\u67e5\u8be2sql:");
+
+		jLabel10.setText("\u603b\u6570\u67e5\u8be2sql:");
+
+		countSql.setColumns(20);
+		countSql.setRows(5);
+		countSql.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				countSqlFocusLost(evt);
+			}
+		});
+		jScrollPane2.setViewportView(countSql);
+
 		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(
 				jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
@@ -279,21 +301,34 @@ public class mainFrame extends javax.swing.JFrame {
 						.createParallelGroup(
 								javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(
+								javax.swing.GroupLayout.Alignment.TRAILING,
 								jPanel4Layout
 										.createSequentialGroup()
 										.addContainerGap()
 										.addGroup(
 												jPanel4Layout
 														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
+																javax.swing.GroupLayout.Alignment.TRAILING)
 														.addComponent(
-																jScrollPane1,
-																javax.swing.GroupLayout.Alignment.TRAILING,
+																jScrollPane2,
+																javax.swing.GroupLayout.Alignment.LEADING,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																777,
 																Short.MAX_VALUE)
 														.addComponent(
-																generateBysql))
+																jScrollPane1,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																777,
+																Short.MAX_VALUE)
+														.addComponent(
+																generateBysql,
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																jLabel9,
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																jLabel10,
+																javax.swing.GroupLayout.Alignment.LEADING))
 										.addContainerGap()));
 		jPanel4Layout
 				.setVerticalGroup(jPanel4Layout
@@ -302,11 +337,22 @@ public class mainFrame extends javax.swing.JFrame {
 						.addGroup(
 								jPanel4Layout
 										.createSequentialGroup()
-										.addGap(19, 19, 19)
+										.addComponent(jLabel9)
+										.addGap(4, 4, 4)
 										.addComponent(
 												jScrollPane1,
 												javax.swing.GroupLayout.PREFERRED_SIZE,
-												270,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(jLabel10)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(
+												jScrollPane2,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												133,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -578,6 +624,11 @@ public class mainFrame extends javax.swing.JFrame {
 	}// </editor-fold>
 	//GEN-END:initComponents
 
+	private void countSqlFocusLost(java.awt.event.FocusEvent evt) {
+		GeneratorProperties.getProperties().setProperty("countSql",
+				this.countSql.getText().trim());
+	}
+
 	private void updateFieldsFocusLost(java.awt.event.FocusEvent evt) {
 		GeneratorProperties.getProperties().setProperty("updateFields",
 				this.updateFields.getText().trim());
@@ -633,7 +684,7 @@ public class mainFrame extends javax.swing.JFrame {
 
 		this.generator.setEnabled(false);
 		try {
-
+			GeneratorUtil.setFromTable(true);
 			GeneratorFacade g = new GeneratorFacade();
 			g.deleteOutRootDir();
 			g.generateByTable(tableName, "template/bytable/gmc");
@@ -743,10 +794,9 @@ public class mainFrame extends javax.swing.JFrame {
 	}
 
 	private void generateBysqlActionPerformed(java.awt.event.ActionEvent evt) {
-
+		String tableName = this.table.getText().trim();
+		String sql = this.sql.getText().trim();
 		try {
-			String tableName = this.table.getText().trim();
-			String sql = this.sql.getText().trim();
 			if ("".equals(sql)) {
 				result.setText("sql不能为空!");
 				return;
@@ -755,6 +805,7 @@ public class mainFrame extends javax.swing.JFrame {
 				result.setText("表名不能为空!");
 				return;
 			}
+			GeneratorUtil.setFromTable(false);
 			this.generateBysql.setEnabled(false);
 			GeneratorFacade g = new GeneratorFacade();
 			g.deleteOutRootDir();
@@ -763,7 +814,7 @@ public class mainFrame extends javax.swing.JFrame {
 
 			sqlo.setMultiplicity("many"); //many or one,用于控制查询结果是one,many      
 			sqlo.setOperation("");
-			g.generateBySql(sqlo, "template/bysql/gmc");
+			g.generateBySql(sqlo, "template/bytable/gmc");
 			//打开文件夹
 			Runtime.getRuntime().exec(
 					"cmd.exe /c start "
@@ -777,6 +828,7 @@ public class mainFrame extends javax.swing.JFrame {
 		} //删除生成器的输出目录
 		this.generateBysql.setEnabled(true);
 		this.result.setText("已生成");
+		copyFiles(tableName);
 	}
 
 	private void tableActionPerformed(java.awt.event.ActionEvent evt) {
@@ -797,10 +849,12 @@ public class mainFrame extends javax.swing.JFrame {
 	//GEN-BEGIN:variables
 	// Variables declaration - do not modify
 	private javax.swing.JRadioButton autoGenFile;
+	private javax.swing.JTextArea countSql;
 	private javax.swing.JRadioButton coverFile;
 	private javax.swing.JButton generateBysql;
 	private javax.swing.JButton generator;
 	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel10;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
@@ -808,6 +862,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel6;
 	private javax.swing.JLabel jLabel7;
 	private javax.swing.JLabel jLabel8;
+	private javax.swing.JLabel jLabel9;
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
 	private javax.swing.JMenu jMenu3;
@@ -820,6 +875,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel4;
 	private javax.swing.JPanel jPanel5;
 	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JTabbedPane jTabbedPane1;
 	private javax.swing.JTextField mvoPackage;
 	private javax.swing.JTextField queryFields;

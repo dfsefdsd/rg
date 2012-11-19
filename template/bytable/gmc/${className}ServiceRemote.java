@@ -9,7 +9,7 @@ import com.gm.soa.common.SoaException;
 import com.gm.soa.vo.${soaCorePackage}.${className}VO;
 
 public interface ${className}ServiceRemote {
-    
+    <#if gh.fromTable>
     /**
      * 新增记录
      */
@@ -18,7 +18,11 @@ public interface ${className}ServiceRemote {
      * 删除记录
      */
     public boolean delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
-    
+    /**
+     * 更新记录
+     */
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    </#if>
     /**
      * 根据id查询记录
      */
@@ -31,11 +35,5 @@ public interface ${className}ServiceRemote {
     /**
      * 查询总数
      */
-    public int getTotal${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
-    
-    /**
-     * 更新记录
-     */
-    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
-    
+    public int getTotal${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException; 
 }

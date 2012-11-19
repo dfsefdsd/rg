@@ -199,4 +199,13 @@ public class GeneratorUtil {
 		return str.replaceAll(regex, replacement);
 	}
 
+	private static boolean fromTable=true;
+	
+	public boolean getFromTable(){
+		return fromTable;
+	}
+	
+	public static void setFromTable(boolean flag){
+		fromTable= flag;
+	}
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cn.org.rapid_framework.generator.GeneratorProperties;
 import cn.org.rapid_framework.generator.provider.db.sql.model.Sql;
 import cn.org.rapid_framework.generator.provider.db.sql.model.SqlParameter;
 import cn.org.rapid_framework.generator.provider.db.table.TableFactory;
@@ -76,9 +77,10 @@ public class SqlFactory {
         	conn.setAutoCommit(false);
 	        PreparedStatement ps = conn.prepareStatement(SqlParseHelper.removeOrders(executeSql));
 	        ResultSetMetaData resultSetMetaData = executeForResultSetMetaData(executeSql,ps);
+	        
             sql.setColumns(new SelectColumnsParser().convert2Columns(sql,resultSetMetaData));
 	        sql.setParams(new SqlParametersParser().parseForSqlParameters(parsedSql,sql));
-	        
+	        setExtColumns(sql);
 	        return afterProcessedSql(sql);
         }catch(Exception e) {
         	throw new RuntimeException("sql parse error,\nsourceSql:"+sourceSql+"\nnamedSql:"+namedSql+"\nexecutedSql:"+executeSql,e);
@@ -91,6 +93,33 @@ public class SqlFactory {
         	}
         }
     }
+    
+    private void setExtColumns(Sql table){
+		LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
+		LinkedHashSet<Column> updateColumns = new LinkedHashSet<Column>();
+		LinkedHashSet<Column> columns = table.getColumns();
+		String queryFields[]=GeneratorProperties.getRequiredProperty("queryFields").trim().split(",");
+		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
+		for(Column column:columns){
+			for(int i=0;i<queryFields.length;i++){
+				if(column.getSqlName().equalsIgnoreCase(queryFields[i])){
+					queryColumns.add(column);
+				}
+			}
+			
+			for(int i=0;i<updateFields.length;i++){
+				if(column.getSqlName().equalsIgnoreCase(updateFields[i])){
+					updateColumns.add(column);
+				}
+			}
+		}
+		table.setQueryColumns(queryColumns);
+		
+		if(queryFields.length==0){
+			table.setQueryColumns(columns);
+		}
+
+	}
 
     protected Sql afterProcessedSql(Sql sql) {
 		return sql;
