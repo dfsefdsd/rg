@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><desc>
+未完成：
+1.自动生成到指定目录
+2.参数指定
 
 一. 生成器模板路径可以引用相关变量
 	如 ${basepackage}/${className}.java,根据该变量生成输出文件

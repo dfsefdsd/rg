@@ -1,23 +1,24 @@
-package ${basepackage}.service;
+package com.gm.gmportal.mygm.${mvoPackage}.service;
+
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>   
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gm.gmcore.annotation.GmAutowired;
-import com.gm.soa.common.Exception;
 import com.gm.soa.common.util.DateUtil;
 import com.gm.soa.common.vo.PaginationVO;
-import com.gm.soa.constants.ErrorCode;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
+import com.gm.gmportal.mygm.common.constants.CommonConstants;
+import com.gm.soa.vo.${soaCorePackage}.${className}VO;
+import com.gm.soa.remote.${soaCorePackage}.${className}ServiceRemote;
 
-
-<#assign className= table.className>    
-<#assign classNameFirstLower= table.classNameFirstLower>   
 
 @Service
 @GmAutowired
@@ -77,26 +78,26 @@ public class ${className}Service{
      */
     public Map<String, Object> getPagination${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	Map<String, Object> result = new HashMap<String, Object>();
-    	PaginationVO<${className}VO> vos=${classNameFirstLower}ServiceClient.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId)
+    	PaginationVO<${className}VO> vos=${classNameFirstLower}ServiceClient.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId);
        
 		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
     	
-    	if(vos.getTotal==0){
+    	if(vos.getTotal()==0){
     		result.put(CommonConstants.TOTAL,0);
     	}else{
     		Map<String, Object> adata=null;
-    		List<Map<String, Object>> list =new List<Map<String, Object>>();
-    		if(result.getItems()==null){
+    		List<Map<String, Object>> list =new ArrayList<Map<String, Object>>();
+    		if(vos.getItems()==null){
     			result.put(CommonConstants.DATA,null);
     		}else{
-    		    for(${className}VO vo:result.getItems()){
+    		    for(${className}VO vo:vos.getItems()){
     		    	adata = new HashMap<String, Object>();
     		    	
     		    	<#list table.columns as column>
     		    	<#if column.javaType=="Date">
-    		    	adata.put("${column.columnNameLower}",DateUtil.formatDate(vo.get${column.columnName}, DateUtil.SIMPLE_DATE_FORMAT));
+    		    	adata.put("${column.columnNameLower}",DateUtil.formatDate(vo.get${column.columnName}(), DateUtil.SIMPLE_DATE_FORMAT));
     		    	<#else>
-    		    	adata.put("${column.columnNameLower}",vo.get${column.columnName});
+    		    	adata.put("${column.columnNameLower}",vo.get${column.columnName}());
     		    	</#if>
     		    	</#list>
     		    	
@@ -110,9 +111,9 @@ public class ${className}Service{
     /**
      * 查询总数
      */
-    public Map<String, Object> getTotal${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public Map<String, Object> getTotal${className}ByParam(<#list table.columns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	Map<String, Object> result = new HashMap<String, Object>();
-    	int total=${classNameFirstLower}ServiceClient.getTotal${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId)
+    	int total=${classNameFirstLower}ServiceClient.getTotal${className}ByParam(<#list table.columns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId);
     	result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
     	result.put(CommonConstants.DATA,total);	
     	return result;
@@ -121,7 +122,6 @@ public class ${className}Service{
     /**
      * 更新记录
      */
-    @Override
     public Map<String, Object> update${className}ById(<#list table.columns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	
     	Map<String, Object> result = new HashMap<String, Object>();

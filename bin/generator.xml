@@ -8,14 +8,33 @@
 	
 	<!-- oracle需要指定jdbc.schema,其它数据库忽略此项配置  -->
 	jdbc.schema
+	mvoPackage
+	sequenceName
+	autoGenFile
+	coverFile
+	tableName
+	mvoPackage
+	soaCorePackage
+	soaSrcPackage
 	
 	</comment>
-	
 
 	<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
 	<entry key="namespace">pages</entry>
-	
+
 	<entry key="outRoot">D:\generator-output</entry>
+	<entry key="mvoRoot">E:\project\GMC\mvo\src\main\java\com\gm\gmportal\mygm</entry>
+	<entry key="soaRoot">E:\project\GMC\gm_soa</entry>
+	
+	<entry key="jdbc.schema">APP_VO</entry>
+	<entry key="soaCorePackage">message</entry>
+	<entry key="mvoPackage">inquiry</entry>
+	<entry key="soaSrcPackage">message</entry>
+	<entry key="sequenceName">seq_im$table</entry>
+	<entry key="autoGenFile">true</entry>
+	<entry key="tableName">im$table</entry>
+	<entry key="coverFile">true</entry>
+                                    
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
 	<entry key="tableRemovePrefixes"></entry>
@@ -24,7 +43,6 @@
 	<entry key="jdbc.password">APP_VO</entry>
 		
 	<entry key="basepackage">gmc</entry>
-	<entry key="jdbc.schema">GM_PORTAL</entry>
 	<entry key="jdbc.catalog"></entry>
 	
 	<!-- 数据库类型映射  -->

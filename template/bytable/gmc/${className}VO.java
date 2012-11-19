@@ -1,7 +1,9 @@
-package ${basepackage}.vo;
-import java.io.Serializable;
+package com.gm.soa.vo.${soaCorePackage};
 <#assign className= table.className>    
 <#assign classNameFirstLower= table.classNameFirstLower>  
+
+import java.io.Serializable;
+
 public class ${className}VO implements Serializable{
 	<#list table.columns as column>
 	private ${column.javaType} ${column.columnNameLower}=null;

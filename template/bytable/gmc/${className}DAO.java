@@ -1,5 +1,8 @@
-package ${basepackage}.dao;
+package com.gm.soa.dao.${soaSrcPackage};
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>  
 
+import com.gm.soa.vo.${soaCorePackage}.${className}VO;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -14,8 +17,6 @@ import com.gm.soa.dao.BaseDao;
 import com.gm.soa.util.StringUtil;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
 
-<#assign className= table.className>    
-<#assign classNameFirstLower= table.classNameFirstLower>  
 @Repository
 public class ${className}DAO {
 	
@@ -28,7 +29,7 @@ public class ${className}DAO {
      */
     private Long getNew${className}Id(){
     	
-        StringBuilder sql = new StringBuilder("SELECT gm_portal.seq_${gh.lower(table.sqlName)}.nextval FROM DUAL");
+        StringBuilder sql = new StringBuilder("SELECT ${sequenceName}.nextval FROM DUAL");
         Long result = baseDao.jdbcTemplate.queryForLong(sql.toString());
         return result;
     }

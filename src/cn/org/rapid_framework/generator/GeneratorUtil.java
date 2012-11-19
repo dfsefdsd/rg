@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import cn.org.rapid_framework.generator.ext.MyMethod;
 import cn.org.rapid_framework.generator.ext.Parameter;
 import cn.org.rapid_framework.generator.util.StringHelper;
+import freemarker.template.utility.StringUtil;
 
 public class GeneratorUtil {
 	/**
@@ -171,7 +172,14 @@ public class GeneratorUtil {
 			throw new Error();
 		}		
 	}
-	
+	/**
+	 * 去掉字符串中给定的符号
+	 * @author huber.lv
+	 * @since 2012-11-15
+	 * @param sqlName
+	 * @param splite
+	 * @return
+	 */
 	public  String worksUpperCase(String sqlName,String splite) {
 		String[] strs = sqlName.toLowerCase().split(splite);
 		String result = "";
@@ -185,6 +193,10 @@ public class GeneratorUtil {
 			preStr = strs[i];
 		}
 		return result;
+	}
+	
+	public String replaceAll(String str,String regex,String replacement){
+		return str.replaceAll(regex, replacement);
 	}
 
 }

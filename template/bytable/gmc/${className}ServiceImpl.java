@@ -1,4 +1,7 @@
-package ${basepackage}.service.impl;
+package com.gm.soa.service.${soaCorePackage};
+
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>   
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +15,10 @@ import com.gm.soa.common.SoaException;
 import com.gm.soa.common.vo.PaginationVO;
 import com.gm.soa.constants.ErrorCode;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
+import com.gm.soa.vo.${soaCorePackage}.${className}VO;
+import com.gm.soa.dao.${soaSrcPackage}.${className}DAO;
+import com.gm.soa.remote.${soaCorePackage}.${className}ServiceRemote;
 
-
-<#assign className= table.className>    
-<#assign classNameFirstLower= table.classNameFirstLower>   
 
 @Service
 public class ${className}ServiceImpl implements ${className}ServiceRemote{

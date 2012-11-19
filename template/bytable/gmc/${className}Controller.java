@@ -1,5 +1,8 @@
-package ${basepackage}.controller;
+package com.gm.gmportal.mygm.${mvoPackage}.controller;
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>  
 
+<#assign classNameLowerCase= table.classNameLowerCase>  
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +17,12 @@ import com.gm.gmcore.web.view.GmModelAndView;
 import com.gm.gmportal.core.controller.GmPortalController;
 import com.gm.gmportal.mygm.common.helper.MessageManagementHelper;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
+import com.gm.gmportal.mygm.common.constants.CommonConstants;
+import com.gm.soa.vo.${soaCorePackage}.${className}VO;
+import com.gm.gmportal.mygm.${mvoPackage}.service.${className}Service;
 
-<#assign className= table.className>    
-<#assign classNameFirstLower= table.classNameFirstLower>  
-
-<#assign classNameLowerCase= table.classNameLowerCase>  
 @GmAutowired
-@Controller("${basepackage}.${classNameLowerCase}controller")
+@Controller("mygm.${mvoPackage}.${classNameLowerCase}controller")
 public class ${className}Controller extends GmPortalController {
 	
 	private ${className}Service ${classNameFirstLower}Service;
@@ -43,7 +45,7 @@ public class ${className}Controller extends GmPortalController {
     		jsonMap=${classNameFirstLower}Service.add${className}(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     		
     	}catch (Exception e) {
-    		result=new HashMap<String, Object>();
+    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -53,6 +55,7 @@ public class ${className}Controller extends GmPortalController {
     /**
      * 删除记录
      */
+    @RequestMapping 
     public ModelAndView delete${className}ById(long id){
     	ModelAndView result = null;
     	Map<String, Object> jsonMap = null;
@@ -63,10 +66,10 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.delete${className}ById(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+    		jsonMap=${classNameFirstLower}Service.delete${className}ById(id,currentCompId,currentContactId,currentUserId);
     		
     	}catch (Exception e) {
-    		result=new HashMap<String, Object>();
+    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -76,6 +79,7 @@ public class ${className}Controller extends GmPortalController {
     /**
      * 根据id查询记录
      */
+    @RequestMapping 
     public ModelAndView show${className}ById(long id){
     	ModelAndView result = null;
     	try{
@@ -140,10 +144,10 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>pc,currentCompId,currentContactId,currentUserId);
+    		jsonMap=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,pc,currentCompId,currentContactId,currentUserId);
     		
     	}catch (Exception e) {
-    		result=new HashMap<String, Object>();
+    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -167,7 +171,7 @@ public class ${className}Controller extends GmPortalController {
     		jsonMap=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     		
     	}catch (Exception e) {
-    		result=new HashMap<String, Object>();
+    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -191,7 +195,7 @@ public class ${className}Controller extends GmPortalController {
     		jsonMap=${classNameFirstLower}Service.update${className}ById(<#list table.columns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     		
     	}catch (Exception e) {
-    		result=new HashMap<String, Object>();
+    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);

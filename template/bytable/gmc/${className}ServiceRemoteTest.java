@@ -1,14 +1,15 @@
-package ${basepackage}.service.remote;
+package com.gm.soa.remote.${soaCorePackage};
 
+<#assign className= table.className>    
+<#assign classNameFirstLower= table.classNameFirstLower>   
 import junit.framework.Assert;
 import org.junit.Test;
 import com.gm.soa.common.util.SoaBaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gm.soa.vo.buyinglead.PaginationCondition;
 import com.gm.soa.common.vo.PaginationVO;
+import com.gm.soa.vo.${soaCorePackage}.${className}VO;
 
-<#assign className= table.className>    
-<#assign classNameFirstLower= table.classNameFirstLower>   
 
 public class ${className}ServiceRemoteTest extends SoaBaseTest { 
     @Autowired
