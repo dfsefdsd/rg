@@ -17,7 +17,7 @@ public interface ${className}ServiceRemote {
     /**
      * 删除记录
      */
-    public boolean delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    public boolean delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
     /**
      * 更新记录
      */
@@ -26,7 +26,7 @@ public interface ${className}ServiceRemote {
     /**
      * 根据id查询记录
      */
-    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
+    public ${className}VO get${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException;
     
     /**
      * 查询记录

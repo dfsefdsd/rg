@@ -100,15 +100,16 @@ public class SqlFactory {
 		LinkedHashSet<Column> columns = table.getColumns();
 		String queryFields[]=GeneratorProperties.getRequiredProperty("queryFields").trim().split(",");
 		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
+		String byIdFields[]=GeneratorProperties.getRequiredProperty("byIdFields").trim().split(",");
 		for(Column column:columns){
 			for(int i=0;i<queryFields.length;i++){
-				if(column.getSqlName().equalsIgnoreCase(queryFields[i])){
+				if(column.getSqlName().equalsIgnoreCase(queryFields[i].trim())){
 					queryColumns.add(column);
 				}
 			}
 			
 			for(int i=0;i<updateFields.length;i++){
-				if(column.getSqlName().equalsIgnoreCase(updateFields[i])){
+				if(column.getSqlName().equalsIgnoreCase(updateFields[i].trim())){
 					updateColumns.add(column);
 				}
 			}
@@ -118,7 +119,15 @@ public class SqlFactory {
 		if(queryFields.length==0){
 			table.setQueryColumns(columns);
 		}
-
+		List<Column> pkColumns = new ArrayList<Column>();
+		for(Column c : columns) {
+			for(int i=0;i<byIdFields.length;i++){
+				if(c.getSqlName().equalsIgnoreCase(queryFields[i])){
+					pkColumns.add(c);
+				}
+			}
+		}
+		table.setPkColumns(pkColumns);
 	}
 
     protected Sql afterProcessedSql(Sql sql) {

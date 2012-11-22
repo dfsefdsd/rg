@@ -180,13 +180,13 @@ public class TableFactory {
 		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
 		for(Column column:columns){
 			for(int i=0;i<queryFields.length;i++){
-				if(column.getSqlName().equalsIgnoreCase(queryFields[i])){
+				if(column.getSqlName().equalsIgnoreCase(queryFields[i].trim())){
 					queryColumns.add(column);
 				}
 			}
 			
 			for(int i=0;i<updateFields.length;i++){
-				if(column.getSqlName().equalsIgnoreCase(updateFields[i])){
+				if(column.getSqlName().equalsIgnoreCase(updateFields[i].trim())){
 					updateColumns.add(column);
 				}
 			}

@@ -84,16 +84,19 @@ public class ${className}DAO {
     /**
      * 删除${className}记录
      */
-    public boolean delete${className}ById(long id)throws Exception{
+    public boolean delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>)throws Exception{
     	
-        logger.info("In function : delete${className}ById id={}", new Object[]{id});
+    	logger.info("In function : delete${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>});
         
         StringBuilder sql = new StringBuilder();
-        sql.append("DELETE FROM ${gh.lower(table.sqlName)} WHERE <#list table.columns as column><#if column.pk>${gh.lower(column.sqlName)}=:id</#if></#list>");
+        sql.append("DELETE FROM ${gh.lower(table.sqlName)} WHERE <#list table.columns as column><#if column.pk>${gh.lower(column.sqlName)}=:${column.columnNameLower}</#if></#list>");
     
         Map<String, Object> paramMap = new HashMap<String, Object>();
 
-    	paramMap.put("id", id);
+        <#list table.pkColumns as column>
+        paramMap.put("${column.columnNameLower}", ${column.columnNameLower});
+        </#list>
+        
         logger.info(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         
         boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
@@ -127,18 +130,19 @@ public class ${className}DAO {
     /**
      * 更新${className}记录
      */
-    public boolean update${className}ById(long id,${className}VO setParam) throws Exception{
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,${className}VO setParam) throws Exception{
     	
-        logger.info("In function : update${className}ById: id={}", new Object[]{id});
+        logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>});
         
         StringBuilder sql = new StringBuilder();
         Map<String, Object> paramMap = new HashMap<String, Object>();
         
         sql.append("UPDATE ${gh.lower(table.sqlName)} SET ");
         putUpdateParam(setParam,sql,paramMap);
-        sql.append(" WHERE <#list table.columns as column><#if column.pk>${gh.lower(column.sqlName)}=:id</#if></#list>");
-        
-    	paramMap.put("id", id);
+        sql.append(" WHERE <#list table.columns as column><#if column.pk>${gh.lower(column.sqlName)}=:${column.columnNameLower}</#if></#list>");
+        <#list table.pkColumns as column>
+        paramMap.put("${column.columnNameLower}", ${column.columnNameLower});
+        </#list>
         logger.info(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         
         boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
@@ -214,20 +218,20 @@ public class ${className}DAO {
     /**
      * 根据id查询${className}记录
      */
-    public ${className}VO get${className}ById(long id)throws Exception{
+    public ${className}VO get${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>)throws Exception{
     	
-        logger.info("In function : get${className}ById: id={}", new Object[]{id});
+        logger.info("In function : get${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>});
         
         StringBuilder sql = new StringBuilder();
         sql.append(getSelectSQL());
-        sql.append(" AND <#list table.columns as column><#if column.pk>${gh.lower(column.sqlName)}=:id</#if></#list>");
+        sql.append(" AND <#list table.pkColumns as column>${gh.lower(column.sqlName)}=:${column.columnNameLower}</#list>");
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("id", id);
-        
+        <#list table.pkColumns as column>
+        paramMap.put("${column.columnNameLower}", ${column.columnNameLower});
+        </#list>
         logger.info(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         ${className}VO result = baseDao.namedParameterJdbcTemplate.queryForObject(sql.toString(), paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));   
         logger.info("End function : get${className}ById");
         return result;
     }
-
 }

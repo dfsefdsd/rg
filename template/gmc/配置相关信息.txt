@@ -18,12 +18,17 @@
 		<property name="serviceUrl" value="${'$'}{gmsoa.remote.url}/gm_soa/remote/${classNameFirstLower}Service" />
 		<property name="serviceInterface" value="com.gm.soa.remote.${soaCorePackage}.${className}ServiceRemote" />
 	</bean>
+	
+	
+以下信息配置在/mvo/src/main/resources/gm_security.xml
+
+	/mygm/inquiry/${classNameLowerCase}/** = ROLE_manufacturer_common,ROLE_buyer_common,ROLE_buyer_unverified
 
 	
 链接地址：
 http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/add${className}.gm?<#list table.notPkColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if></#list>
-http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/delete${className}ById.gm?id=1	
-http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/show${className}ById.gm?id=1	
+http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/delete${className}ById.gm?<#list table.pkColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if></#list>	
+http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/show${className}ById.gm?<#list table.pkColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if></#list>	
 http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/enter${className}.gm?<#list table.queryColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if></#list>&pageNum=1
 http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/query${className}List.gm?<#list table.queryColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if>&pageNum=1</#list>
 http://localhost:8080/gmvo/mygm/${mvoPackage}/${classNameLowerCase}/queryTotal${className}ByParam.gm?<#list table.queryColumns as column>${column.columnNameLower}=1<#if column_has_next>&</#if></#list>

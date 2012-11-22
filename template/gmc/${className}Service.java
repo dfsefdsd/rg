@@ -27,16 +27,81 @@ public class ${className}Service implements ${className}ServiceRemote{
 	
     @Autowired
     private ${className}DAO ${classNameFirstLower}DAO;
+    <#if gh.fromTable>
+    /**
+     * 新增记录
+     */
+    @Override
+    public Long add${className}(${className}VO ${classNameFirstLower}VO,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : add${className}: ${classNameFirstLower}VO={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId});
+    	try{
+	    	Long result=${classNameFirstLower}DAO.add${className}(${classNameFirstLower}VO);
+	    	logger.info("End function : add${className}");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
+    }
     
-  
+    /**
+     * 删除记录
+     */
+    @Override
+    public boolean delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : delete${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId});
+    	try{
+	    	boolean result=${classNameFirstLower}DAO.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>);
+	    	logger.info("End function : delete${className}ById");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		}  	
+    }
+    
+    /**
+     * 更新记录
+     */
+    @Override
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>,<#list table.updateColumns as column>${column.columnNameLower}={},<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
+    	${className}VO ${classNameFirstLower}VO=new ${className}VO();  
+    	<#list table.updateColumns as column>
+    	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
+    	</#list>
+    	
+    	try{
+	    	boolean result=${classNameFirstLower}DAO.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,${classNameFirstLower}VO);
+	    	logger.info("End function : update${className}ById");
+	    	return result;
+    	}catch (Exception e) {
+    		logger.info(" ckpt1 exception:{}", new Object[] { e });
+			if(e instanceof SoaException){
+				throw (SoaException)e;
+			}else{
+				throw new SoaException( ErrorCode.UNKNOWN, e.getMessage());
+			}
+		} 
+    }
+    </#if>
+    
     /**
      * 根据id查询记录
      */
     @Override
-    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
-    	logger.info("In function : get${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
+    public ${className}VO get${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws SoaException{
+    	logger.info("In function : get${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
     	try{
-	        ${className}VO result=${classNameFirstLower}DAO.get${className}ById(id);
+	        ${className}VO result=${classNameFirstLower}DAO.get${className}ById(<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>);
 	        logger.info("End function : get${className}ById");
 	    	return result;
     	}catch (Exception e) {
@@ -107,5 +172,4 @@ public class ${className}Service implements ${className}ServiceRemote{
 			}
 		} 
     }
-    
 }

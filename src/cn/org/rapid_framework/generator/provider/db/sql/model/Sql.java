@@ -1,7 +1,9 @@
 package cn.org.rapid_framework.generator.provider.db.sql.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import cn.org.rapid_framework.generator.provider.db.sql.SqlFactory;
 import cn.org.rapid_framework.generator.provider.db.table.model.Column;
@@ -44,6 +46,15 @@ public class Sql {
 	
 	LinkedHashSet<Column> columns = new LinkedHashSet<Column>();
 	LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
+	List<Column> pkColumns = new ArrayList<Column>();
+	public List<Column> getPkColumns() {
+		return pkColumns;
+	}
+
+	public void setPkColumns(List<Column> pkColumns) {
+		this.pkColumns = pkColumns;
+	}
+
 	public LinkedHashSet<Column> getQueryColumns() {
 		return queryColumns;
 	}

@@ -57,11 +57,11 @@ public class ${className}VOService{
     /**
      * 删除记录
      */
-    public Map<String, Object> delete${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	logger.info("In function : delete${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
+    public Map<String, Object> delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    	logger.info("In function : delete${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId});
     	
     	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.delete${className}ById(id,currentCompId,currentContactId,currentUserId);
+    	boolean success=${classNameFirstLower}ServiceClient.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId);
     	if(!success){
     		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
     	}else{
@@ -92,9 +92,9 @@ public class ${className}VOService{
     /**
      * 根据id查询记录
      */
-    public ${className}VO get${className}ById(long id,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
-    	logger.info("In function : get${className}ById: id={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{id,currentCompId,currentContactId,currentUserId});
-    	${className}VO vo=${classNameFirstLower}ServiceClient.get${className}ById(id,currentCompId,currentContactId,currentUserId);
+    public ${className}VO get${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    	logger.info("In function : get${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
+    	${className}VO vo=${classNameFirstLower}ServiceClient.get${className}ById(<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     	logger.info("End function : get${className}ById");
     	return vo;
     }

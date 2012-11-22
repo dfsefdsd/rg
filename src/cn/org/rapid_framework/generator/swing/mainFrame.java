@@ -53,6 +53,7 @@ public class mainFrame extends javax.swing.JFrame {
 				.getProperty("updateFields"));
 		this.sql.setText(GeneratorProperties.getProperty("sql"));
 		this.countSql.setText(GeneratorProperties.getProperty("countSql"));
+		this.byIdFields.setText(GeneratorProperties.getProperty("byIdFields"));
 
 	}
 
@@ -77,6 +78,8 @@ public class mainFrame extends javax.swing.JFrame {
 		jLabel10 = new javax.swing.JLabel();
 		jScrollPane2 = new javax.swing.JScrollPane();
 		countSql = new javax.swing.JTextArea();
+		jLabel11 = new javax.swing.JLabel();
+		byIdFields = new javax.swing.JTextField();
 		jPanel3 = new javax.swing.JPanel();
 		jPanel2 = new javax.swing.JPanel();
 		jLabel2 = new javax.swing.JLabel();
@@ -101,6 +104,7 @@ public class mainFrame extends javax.swing.JFrame {
 		jMenu4 = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setTitle("GMC\u4ee3\u7801\u751f\u6210\u5668");
 
 		jPanel1.setToolTipText("\u7531\u8868\u751f\u6210");
 
@@ -293,6 +297,14 @@ public class mainFrame extends javax.swing.JFrame {
 		});
 		jScrollPane2.setViewportView(countSql);
 
+		jLabel11.setText("\u5355\u503c\u67e5\u8be2\u5b57\u6bb5:");
+
+		byIdFields.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				byIdFieldsFocusLost(evt);
+			}
+		});
+
 		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(
 				jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
@@ -301,34 +313,60 @@ public class mainFrame extends javax.swing.JFrame {
 						.createParallelGroup(
 								javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
 								jPanel4Layout
 										.createSequentialGroup()
-										.addContainerGap()
 										.addGroup(
 												jPanel4Layout
 														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING)
-														.addComponent(
-																jScrollPane2,
-																javax.swing.GroupLayout.Alignment.LEADING,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																777,
-																Short.MAX_VALUE)
-														.addComponent(
-																jScrollPane1,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																777,
-																Short.MAX_VALUE)
-														.addComponent(
-																generateBysql,
 																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(
-																jLabel9,
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(
-																jLabel10,
-																javax.swing.GroupLayout.Alignment.LEADING))
+														.addGroup(
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																jPanel4Layout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addGroup(
+																				jPanel4Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.TRAILING)
+																						.addComponent(
+																								jScrollPane2,
+																								javax.swing.GroupLayout.Alignment.LEADING,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								777,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jScrollPane1,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								777,
+																								Short.MAX_VALUE)
+																						.addGroup(
+																								javax.swing.GroupLayout.Alignment.LEADING,
+																								jPanel4Layout
+																										.createSequentialGroup()
+																										.addComponent(
+																												jLabel11)
+																										.addPreferredGap(
+																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																										.addComponent(
+																												byIdFields,
+																												javax.swing.GroupLayout.PREFERRED_SIZE,
+																												660,
+																												javax.swing.GroupLayout.PREFERRED_SIZE))
+																						.addComponent(
+																								jLabel9,
+																								javax.swing.GroupLayout.Alignment.LEADING)
+																						.addComponent(
+																								jLabel10,
+																								javax.swing.GroupLayout.Alignment.LEADING)))
+														.addGroup(
+																jPanel4Layout
+																		.createSequentialGroup()
+																		.addGap(
+																				339,
+																				339,
+																				339)
+																		.addComponent(
+																				generateBysql)))
 										.addContainerGap()));
 		jPanel4Layout
 				.setVerticalGroup(jPanel4Layout
@@ -337,8 +375,22 @@ public class mainFrame extends javax.swing.JFrame {
 						.addGroup(
 								jPanel4Layout
 										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												jPanel4Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jLabel11)
+														.addComponent(
+																byIdFields,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(jLabel9)
-										.addGap(4, 4, 4)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(
 												jScrollPane1,
 												javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -347,17 +399,18 @@ public class mainFrame extends javax.swing.JFrame {
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addComponent(jLabel10)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addGap(1, 1, 1)
 										.addComponent(
 												jScrollPane2,
 												javax.swing.GroupLayout.PREFERRED_SIZE,
-												133,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(generateBysql)
-										.addContainerGap(24, Short.MAX_VALUE)));
+										.addContainerGap(
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)));
 
 		jTabbedPane1.addTab("\u7531SQL\u751f\u6210", jPanel4);
 
@@ -624,6 +677,11 @@ public class mainFrame extends javax.swing.JFrame {
 	}// </editor-fold>
 	//GEN-END:initComponents
 
+	private void byIdFieldsFocusLost(java.awt.event.FocusEvent evt) {
+		GeneratorProperties.getProperties().setProperty("byIdFields",
+				this.byIdFields.getText().trim());
+	}
+
 	private void countSqlFocusLost(java.awt.event.FocusEvent evt) {
 		GeneratorProperties.getProperties().setProperty("countSql",
 				this.countSql.getText().trim());
@@ -687,7 +745,7 @@ public class mainFrame extends javax.swing.JFrame {
 			GeneratorUtil.setFromTable(true);
 			GeneratorFacade g = new GeneratorFacade();
 			g.deleteOutRootDir();
-			g.generateByTable(tableName, "template/bytable/gmc");
+			g.generateByTable(tableName, "template/gmc");
 			//打开文件夹
 			Runtime.getRuntime().exec(
 					"cmd.exe /c start "
@@ -814,7 +872,7 @@ public class mainFrame extends javax.swing.JFrame {
 
 			sqlo.setMultiplicity("many"); //many or one,用于控制查询结果是one,many      
 			sqlo.setOperation("");
-			g.generateBySql(sqlo, "template/bytable/gmc");
+			g.generateBySql(sqlo, "template/gmc");
 			//打开文件夹
 			Runtime.getRuntime().exec(
 					"cmd.exe /c start "
@@ -849,12 +907,14 @@ public class mainFrame extends javax.swing.JFrame {
 	//GEN-BEGIN:variables
 	// Variables declaration - do not modify
 	private javax.swing.JRadioButton autoGenFile;
+	private javax.swing.JTextField byIdFields;
 	private javax.swing.JTextArea countSql;
 	private javax.swing.JRadioButton coverFile;
 	private javax.swing.JButton generateBysql;
 	private javax.swing.JButton generator;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
+	private javax.swing.JLabel jLabel11;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
