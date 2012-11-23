@@ -5,10 +5,13 @@ package com.gm.gmportal.mygm.${mvoPackage}.controller;
 <#assign classNameLowerCase= table.classNameLowerCase>  
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import com.gm.soa.common.vo.PaginationVO;
 
 import com.gm.gmcommon.pojo.account.AccContacts;
 import com.gm.gmcore.annotation.GmAutowired;
@@ -36,20 +39,24 @@ public class ${className}Controller extends GmPortalController {
     	logger.info("In function : add${className}: <#list table.notPkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>", new Object[]{<#list table.notPkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>});
     	
     	ModelAndView result = null;
-    	Map<String, Object> jsonMap = null;
+    	Map<String, Object> jsonMap=new HashMap<String, Object>();
     	try{
 			AccContacts accContacts = null;	
 			accContacts = getCurrentUser().getAccContact();
 			Long currentCompId = accContacts.getCompId();
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
-			
-    		jsonMap=${classNameFirstLower}Service.add${className}(<#list table.notPkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    		
+
+    		Long id=${classNameFirstLower}Service.add${className}(<#list table.notPkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+	    	if(id==null){
+	    		jsonMap.put(CommonConstants.STATUS,CommonConstants.FAIL);
+	    	}else{
+	    		jsonMap.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
+	    		jsonMap.put(CommonConstants.DATA,id);
+	    	}
     	}catch (Exception e) {
     		logger.info(" ckpt1 exception:{}", new Object[] { e });
     		e.printStackTrace();
-    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	logger.info("End function : add${className}");
@@ -64,7 +71,7 @@ public class ${className}Controller extends GmPortalController {
     public ModelAndView delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>){
     	logger.info("In function : delete${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>});
     	ModelAndView result = null;
-    	Map<String, Object> jsonMap = null;
+    	Map<String, Object> jsonMap = new HashMap<String, Object>();
     	try{
 			AccContacts accContacts = null;	
 			accContacts = getCurrentUser().getAccContact();
@@ -72,12 +79,16 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+    		boolean success=${classNameFirstLower}Service.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
     		
+        	if(!success){
+        		jsonMap.put(CommonConstants.STATUS,CommonConstants.FAIL);
+        	}else{
+        		jsonMap.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
+        	}
     	}catch (Exception e) {
     		logger.info(" ckpt1 exception:{}", new Object[] { e });
     		e.printStackTrace();
-    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -92,7 +103,7 @@ public class ${className}Controller extends GmPortalController {
     public ModelAndView update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>){
     	logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>,<#list table.updateColumns as column>${column.columnNameLower}={},<#if column_has_next>,</#if></#list>,", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower},<#if column_has_next>,</#if></#list>});
     	ModelAndView result = null;
-    	Map<String, Object> jsonMap = null;
+    	Map<String, Object> jsonMap = jsonMap=new HashMap<String, Object>();
     	try{
 			AccContacts accContacts = null;	
 			accContacts = getCurrentUser().getAccContact();
@@ -100,12 +111,15 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    		
+    		boolean success=${classNameFirstLower}Service.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId); 	
+        	if(!success){
+        		jsonMap.put(CommonConstants.STATUS,CommonConstants.FAIL);
+        	}else{
+        		jsonMap.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
+        	}
     	}catch (Exception e) {
     		logger.info(" ckpt1 exception:{}", new Object[] { e });
     		e.printStackTrace();
-    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	result=new GmModelAndView(GM_JSON_VIEW, jsonMap);
@@ -177,7 +191,7 @@ public class ${className}Controller extends GmPortalController {
     public ModelAndView query${className}List(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,int pageNum){
     	logger.info("In function : query${className}List: <#list table.queryColumns as column>${column.columnNameLower}={},</#list>pageNum={}", new Object[]{<#list table.queryColumns as column>${column.columnNameLower},</#list>pageNum});
     	ModelAndView result = null;
-    	Map<String, Object> jsonMap = null;
+    	Map<String, Object> jsonMap = new HashMap<String, Object>();
     	PaginationCondition pc =new PaginationCondition();
 		pc.setPageSize(MessageManagementHelper.DEFAULT_PAGE_SIZE);
 		pc.setPageNum(pageNum);
@@ -188,12 +202,37 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,pc,currentCompId,currentContactId,currentUserId);
+			PaginationVO<${className}VO> vos=${classNameFirstLower}Service.getPagination${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,pc,currentCompId,currentContactId,currentUserId);
     		
+			jsonMap.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
+        	
+        	if(vos.getTotal()==0){
+        		jsonMap.put(CommonConstants.TOTAL,0);
+        	}else{
+        		Map<String, Object> adata=null;
+        		List<Map<String, Object>> list =new ArrayList<Map<String, Object>>();
+        		if(vos.getItems()==null){
+        			jsonMap.put(CommonConstants.DATA,null);
+        		}else{
+        		    for(${className}VO vo:vos.getItems()){
+        		    	adata = new HashMap<String, Object>();
+        		    	  
+        		    	<#list table.columns as column>
+        		    	<#if column.javaType=="Date">
+        		    	adata.put("${column.columnNameLower}",DateUtil.formatDate(vo.get${column.columnName}(), DateUtil.SIMPLE_DATE_FORMAT));
+        		    	<#else>
+        		    	adata.put("${column.columnNameLower}",vo.get${column.columnName}());
+        		    	</#if>
+        		    	</#list>
+        		    	
+        		    	list.add(adata);
+        		    }
+        		    jsonMap.put(CommonConstants.DATA,list);
+        		}
+        	}
     	}catch (Exception e) {
     		logger.info(" ckpt1 exception:{}", new Object[] { e });
     		e.printStackTrace();
-    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	logger.info("End function : query${className}List");
@@ -208,7 +247,7 @@ public class ${className}Controller extends GmPortalController {
     	logger.info("In function : getTotal${className}ByParam: <#list table.queryColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>", new Object[]{<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>});
     	PaginationCondition pc=new PaginationCondition();
     	ModelAndView result = null;
-    	Map<String, Object> jsonMap = null;
+    	Map<String, Object> jsonMap = new HashMap<String, Object>();
     	try{
 			AccContacts accContacts = null;	
 			accContacts = getCurrentUser().getAccContact();
@@ -216,12 +255,12 @@ public class ${className}Controller extends GmPortalController {
 			Long currentContactId = accContacts.getContactId();
 			Long currentUserId=accContacts.getUserId();
 			
-    		jsonMap=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    		
+    		int total=${classNameFirstLower}Service.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+    		jsonMap.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
+    		jsonMap.put(CommonConstants.DATA,total);	
     	}catch (Exception e) {
     		logger.info(" ckpt1 exception:{}", new Object[] { e });
     		e.printStackTrace();
-    		jsonMap=new HashMap<String, Object>();
     		jsonMap.put(CommonConstants.STATUS,CommonConstants.ERROR);
 		}
     	

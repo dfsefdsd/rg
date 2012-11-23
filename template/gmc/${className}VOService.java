@@ -32,10 +32,9 @@ public class ${className}VOService{
     /**
      * 新增记录
      */
-    public Map<String, Object> add${className}(<#list table.notPkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public Long add${className}(<#list table.notPkColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	
     	logger.info("In function : add${className}: <#list table.notPkColumns as column>${column.columnNameLower}={}<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.notPkColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
     	
     	${className}VO ${classNameFirstLower}VO=new ${className}VO();
     	
@@ -43,30 +42,16 @@ public class ${className}VOService{
     	${classNameFirstLower}VO.set${column.columnName}(${column.columnNameLower});
     	</#list>
     	Long id=${classNameFirstLower}ServiceClient.add${className}(${classNameFirstLower}VO,currentCompId,currentContactId,currentUserId);
-    	
-    	if(id==null){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    		result.put(CommonConstants.DATA,id);
-    	}
     	logger.info("End function : add${className}");
-    	return result;
+    	return id;
     }
     
     /**
      * 删除记录
      */
-    public Map<String, Object> delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public boolean delete${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	logger.info("In function : delete${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId});
-    	
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId);
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
+    	boolean result=${classNameFirstLower}ServiceClient.delete${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,currentCompId,currentContactId,currentUserId);
     	logger.info("End function : delete${className}ById");
     	return result;
     }
@@ -74,16 +59,11 @@ public class ${className}VOService{
     /**
      * 更新记录
      */
-    public Map<String, Object> update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.javaType} ${column.columnNameLower}<#if column_has_next>,</#if></#list>,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	logger.info("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>,<#list table.updateColumns as column>${column.columnNameLower}={},<#if column_has_next>,</#if></#list>,currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	boolean success=${classNameFirstLower}ServiceClient.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
-    	
-    	if(!success){
-    		result.put(CommonConstants.STATUS,CommonConstants.FAIL);
-    	}else{
-    		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	}
+
+    	boolean result=${classNameFirstLower}ServiceClient.update${className}ById(<#list table.pkColumns as column>${column.columnNameLower}</#list>,<#list table.updateColumns as column>${column.columnNameLower}<#if column_has_next>,</#if></#list>,currentCompId,currentContactId,currentUserId);
+
     	logger.info("End function : update${className}ById");
     	return result;
     }
@@ -102,49 +82,18 @@ public class ${className}VOService{
     /**
      * 查询记录
      */
-    public Map<String, Object> getPagination${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public PaginationVO<${className}VO> getPagination${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>PaginationCondition pc,Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	logger.info("In function : getPagination${className}ByParam: <#list table.queryColumns as column>${column.columnNameLower}={},</#list>pc={}, currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.queryColumns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	PaginationVO<${className}VO> vos=${classNameFirstLower}ServiceClient.getPagination${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId);
-       
-		result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	
-    	if(vos.getTotal()==0){
-    		result.put(CommonConstants.TOTAL,0);
-    	}else{
-    		Map<String, Object> adata=null;
-    		List<Map<String, Object>> list =new ArrayList<Map<String, Object>>();
-    		if(vos.getItems()==null){
-    			result.put(CommonConstants.DATA,null);
-    		}else{
-    		    for(${className}VO vo:vos.getItems()){
-    		    	adata = new HashMap<String, Object>();
-    		    	  
-    		    	<#list table.columns as column>
-    		    	<#if column.javaType=="Date">
-    		    	adata.put("${column.columnNameLower}",DateUtil.formatDate(vo.get${column.columnName}(), DateUtil.SIMPLE_DATE_FORMAT));
-    		    	<#else>
-    		    	adata.put("${column.columnNameLower}",vo.get${column.columnName}());
-    		    	</#if>
-    		    	</#list>
-    		    	
-    		    	list.add(adata);
-    		    }
-    		    result.put(CommonConstants.DATA,list);
-    		}
-    	}
+    	PaginationVO<${className}VO> result=${classNameFirstLower}ServiceClient.getPagination${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower},</#list>pc,currentCompId,currentContactId,currentUserId);
     	logger.info("End function : getPagination${className}ByParam");
     	return result;
     }
     /**
      * 查询总数
      */
-    public Map<String, Object> getTotal${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
+    public int getTotal${className}ByParam(<#list table.queryColumns as column>${column.javaType} ${column.columnNameLower},</#list>Long currentCompId,Long currentContactId,Long currentUserId)throws Exception{
     	logger.info("In function : getTotal${className}ByParam: <#list table.queryColumns as column>${column.columnNameLower}={},</#list>currentCompId={},currentContactId={},currentUserId={}", new Object[]{<#list table.queryColumns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId});
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	int total=${classNameFirstLower}ServiceClient.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId);
-    	result.put(CommonConstants.STATUS,CommonConstants.SUCCESS);
-    	result.put(CommonConstants.DATA,total);	
+    	int result=${classNameFirstLower}ServiceClient.getTotal${className}ByParam(<#list table.queryColumns as column>${column.columnNameLower},</#list>currentCompId,currentContactId,currentUserId);
     	logger.info("End function : getTotal${className}ByParam");
     	return result;
     }
