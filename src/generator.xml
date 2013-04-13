@@ -42,6 +42,7 @@
 	<entry key="coverFile">true</entry>
 	<entry key="queryFields">table_id</entry>
 	<entry key="updateFields">table_name</entry>
+	<entry key="methodName">111</entry>
                                     
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->

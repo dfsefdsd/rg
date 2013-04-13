@@ -40,7 +40,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" pref="802" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="870" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -108,7 +108,7 @@
                               <Component id="updateFields" min="-2" pref="684" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -200,8 +200,8 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="777" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="1" pref="777" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="841" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="1" pref="841" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -320,7 +320,7 @@
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="queryFields" min="-2" pref="686" max="-2" attributes="0"/>
-                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                  <EmptySpace pref="128" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -353,7 +353,11 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="table" min="-2" pref="66" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="methodName" min="-2" pref="57" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mvoPackage" min="-2" pref="79" max="-2" attributes="0"/>
@@ -365,7 +369,7 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="soaSrcPackage" min="-2" pref="72" max="-2" attributes="0"/>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -383,6 +387,8 @@
                           <Component id="soaSrcPackage" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="autoGenFile" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="coverFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="methodName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
@@ -441,6 +447,16 @@
                 <Property name="text" type="java.lang.String" value="&#x8986;&#x76d6;&#x6587;&#x4ef6;"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabel12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x65b9;&#x6cd5;&#x540d;:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="methodName">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="methodNameFocusLost"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -481,7 +497,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="result" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="750" max="32767" attributes="0"/>
+                  <EmptySpace pref="830" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

@@ -3,7 +3,7 @@ package com.gm.soa.remote.${soaCorePackage};
 <#assign className= table.className>    
 <#assign classNameFirstLower= table.classNameFirstLower>  
 
-import com.gm.soa.vo.buyinglead.PaginationCondition;
+import com.gm.soa.vo.common.PaginationCondition;
 import com.gm.soa.common.vo.PaginationVO;
 import com.gm.soa.common.SoaException;
 import com.gm.soa.vo.${soaCorePackage}.${className}VO;
