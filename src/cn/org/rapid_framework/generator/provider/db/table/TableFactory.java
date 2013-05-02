@@ -29,11 +29,11 @@ import cn.org.rapid_framework.generator.util.XMLHelper;
 import cn.org.rapid_framework.generator.util.XMLHelper.NodeData;
 /**
  * 
- * 根据数据库表的元数据(metadata)创建Table对象
+ * 鏍规嵁鏁版嵁搴撹〃鐨勫厓鏁版嵁(metadata)鍒涘缓Table瀵硅薄
  * 
  * <pre>
- * getTable(sqlName) : 根据数据库表名,得到table对象
- * getAllTable() : 搜索数据库的所有表,并得到table对象列表
+ * getTable(sqlName) : 鏍规嵁鏁版嵁搴撹〃鍚�寰楀埌table瀵硅薄
+ * getAllTable() : 鎼滅储鏁版嵁搴撶殑鎵�湁琛�骞跺緱鍒皌able瀵硅薄鍒楄〃
  * </pre>
  * @author badqiu
  * @email badqiu(a)gmail.com
@@ -176,8 +176,12 @@ public class TableFactory {
 		LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
 		LinkedHashSet<Column> updateColumns = new LinkedHashSet<Column>();
 		LinkedHashSet<Column> columns = table.getColumns();
-		String queryFields[]=GeneratorProperties.getRequiredProperty("queryFields").trim().split(",");
-		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
+		String queryFields[]=new String[]{};
+		if(GeneratorProperties.getProperty("queryFields")!=null){
+			queryFields=GeneratorProperties.getProperty("queryFields").trim().split(",");
+		}
+			
+		String updateFields[]=GeneratorProperties.getProperty("updateFields").trim().split(",");
 		for(Column column:columns){
 			for(int i=0;i<queryFields.length;i++){
 				if(column.getSqlName().equalsIgnoreCase(queryFields[i].trim())){
@@ -442,7 +446,7 @@ public class TableFactory {
 		return dbHelper.queryForString(sql);
 	}
 	
-	/** 得到表的自定义配置信息 */
+	/** 寰楀埌琛ㄧ殑鑷畾涔夐厤缃俊鎭�*/
 	public static class TableOverrideValuesProvider {
 		
 		private static Map getTableOverrideValues(String tableSqlName){

@@ -23,7 +23,64 @@
 	byIdFields
 	</comment>
 
-	<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
+
+                                    
+
+	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
+	<entry key="tableRemovePrefixes"></entry>
+	
+
+		
+	<entry key="basepackage">gmc</entry>
+	<entry key="jdbc.catalog"></entry>
+	
+	<!-- 数据库类型映射  -->
+	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
+	<entry key="java_typemapping.java.sql.Date">Date</entry>
+	<entry key="java_typemapping.java.sql.Time">Date</entry>	
+	<entry key="java_typemapping.java.lang.Byte">Long</entry>
+	<entry key="java_typemapping.java.lang.Short">Long</entry>
+	<entry key="java_typemapping.java.math.BigDecimal">Long</entry>
+
+	<!-- H2 
+	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.17:1521:core01</entry>
+	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
+		-->
+	<!-- Mysql -->
+		<entry key="jdbc.username">root</entry>
+	<entry key="jdbc.password">root</entry>
+	<entry key="jdbc.url">jdbc:mysql://localhost:3306/online_focus?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
+	
+		<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
+	<entry key="namespace">pages</entry>
+	<entry key="sql">select * from stock_base_info i where 1=1 </entry>
+	<entry key="byIdFields">table_id</entry>
+	<entry key="countSql">select count(1) from stock_base_infoi where 1=1 </entry>
+	<entry key="outRoot">D:\generator-output</entry>
+	<entry key="mvoRoot">E:\project\GMC\mvo\src\main\java\com\gm\gmportal\mygm</entry>
+	<entry key="soaRoot">E:\project\GMC\gm_soa</entry>
+	
+	<entry key="jdbc.schema">APP_VO</entry>
+	<entry key="soaCorePackage"></entry>
+	<entry key="mvoPackage"></entry>
+	<entry key="soaSrcPackage"></entry>
+	<entry key="sequenceName"></entry>
+	<entry key="autoGenFile">true</entry>
+	<entry key="tableName">stock_base_info</entry>
+	<entry key="coverFile">true</entry>
+	<entry key="queryFields"></entry>
+	<entry key="updateFields">eastmoneyBarUrl,eastmoneyComment,earningsRatio</entry>
+	<entry key="methodName"></entry>
+	
+
+	<!-- Oracle 	jdbc:oracle:oci:@tnsname_devdb-->
+<!-- 	
+	<entry key="jdbc.username">APP_VO</entry>
+	<entry key="jdbc.password">APP_VO</entry>
+	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.16:1521:core01</entry>
+	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry> 
+		
 	<entry key="namespace">pages</entry>
 	<entry key="sql">select * from im$table i where 1=1 </entry>
 	<entry key="byIdFields">table_id</entry>
@@ -43,37 +100,7 @@
 	<entry key="queryFields">table_id</entry>
 	<entry key="updateFields">table_name</entry>
 	<entry key="methodName">111</entry>
-                                    
-
-	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
-	<entry key="tableRemovePrefixes"></entry>
-	
-	<entry key="jdbc.username">APP_VO</entry>
-	<entry key="jdbc.password">APP_VO</entry>
-		
-	<entry key="basepackage">gmc</entry>
-	<entry key="jdbc.catalog"></entry>
-	
-	<!-- 数据库类型映射  -->
-	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
-	<entry key="java_typemapping.java.sql.Date">Date</entry>
-	<entry key="java_typemapping.java.sql.Time">Date</entry>	
-	<entry key="java_typemapping.java.lang.Byte">Long</entry>
-	<entry key="java_typemapping.java.lang.Short">Long</entry>
-	<entry key="java_typemapping.java.math.BigDecimal">Long</entry>
-
-	<!-- H2 
-	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.17:1521:core01</entry>
-	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
-		-->
-	<!-- Mysql 
-	<entry key="jdbc.url">jdbc:mysql://localhost:3306/online_focus?useUnicode=true&amp;characterEncoding=UTF-8</entry>
-	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
 	-->
-
-	<!-- Oracle 	jdbc:oracle:oci:@tnsname_devdb-->
-	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.16:1521:core01</entry>
-	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
 	
 	
 	<!-- SQLServer2000 

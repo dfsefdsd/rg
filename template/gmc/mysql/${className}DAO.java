@@ -1,21 +1,21 @@
-package com.gm.soa.dao.${soaSrcPackage};
+package finance.datainit.dao;
 <#assign className= table.className>    
 <#assign classNameFirstLower= table.classNameFirstLower>  
-
-import com.gm.soa.vo.${soaCorePackage}.${className}VO;
+import org.jsoup.helper.StringUtil;
+import finance.datainit.vo.${className}VO;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.gm.soa.common.params.PaginationParams;
-import com.gm.soa.dao.BaseDao;
-import com.gm.soa.util.StringUtil;
-import com.gm.soa.vo.common.PaginationCondition;
+import finance.datainit.util.PaginationCondition;
+import finance.datainit.util.PaginationParams;
 
 @Repository
 public class ${className}DAO {
@@ -24,21 +24,15 @@ public class ${className}DAO {
     @Autowired
     private BaseDao baseDao;
     <#if gh.fromTable>
-    /**
-     * 获取新的id
-     */
-    private Long getNew${className}Id(){
-    	
-        StringBuilder sql = new StringBuilder("SELECT ${sequenceName}.nextval FROM DUAL");
-        Long result = baseDao.jdbcTemplate.queryForLong(sql.toString());
-        return result;
-    }
+
     
-    private void putUpdateParam(${className}VO ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
+    private void putUpdateParam(Map<String,Object> ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
     	if(${classNameFirstLower}VO!=null){  
-        	<#list table.columns as column>       	
-            sql.append(" ${gh.lower(column.sqlName)}=:${column.columnNameLower}<#if column_has_next>,</#if>"); 
-            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get${column.columnName}());
+        	<#list table.columns as column>
+        	if(${classNameFirstLower}VO.get("${column.columnNameLower}")!=null){
+	            sql.append(" ${gh.lower(column.sqlName)}=:${column.columnNameLower}<#if column_has_next>,</#if>"); 
+	            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get("${column.columnNameLower}"));
+        	}
         	</#list>
         	
         	if(sql.length()>0&&sql.charAt(sql.length()-1)==','){
@@ -51,18 +45,11 @@ public class ${className}DAO {
     /**
      * 新增${className}记录
      */
-    public Long add${className}(${className}VO ${classNameFirstLower}VO) throws Exception{
+    public boolean add${className}(${className}VO ${classNameFirstLower}VO) throws Exception{
     	
         logger.debug("In function : add${className} ${classNameFirstLower}VO={}", new Object[]{${classNameFirstLower}VO});
         
         StringBuilder sql = new StringBuilder();
-        Long id = this.getNew${className}Id();
-        
-    	<#list table.columns as column>
-    	<#if column.pk>
-    	${classNameFirstLower}VO.set${column.columnName}(id);
-    	</#if>
-    	</#list>
     	
         sql.append("INSERT INTO ${gh.lower(table.sqlName)}(<#list table.columns as column>${gh.lower(column.sqlName)}<#if column_has_next>,</#if></#list>)");
         sql.append(" VALUES (<#list table.columns as column>:${column.columnNameLower}<#if column_has_next>,</#if></#list>)");
@@ -78,10 +65,8 @@ public class ${className}DAO {
         boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
 
         logger.debug("End function : add${className}");
-        if(!result){
-        	return null;
-        }
-        return id;
+
+        return result;
     }
     /**
      * 删除${className}记录
@@ -109,7 +94,7 @@ public class ${className}DAO {
     /**
      * 修改${className}记录
      */
-    public boolean update${className}ByParam(${className}VO setParam,${className}VO whereParam) throws Exception{
+    public boolean update${className}ByParam(Map<String,Object> setParam,Map<String,Object>whereParam) throws Exception{
     	
         logger.debug("In function : update${className}ByParam: setParam={},whereParam={}", new Object[]{setParam,whereParam});
         
@@ -132,7 +117,7 @@ public class ${className}DAO {
     /**
      * 更新${className}记录
      */
-    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,${className}VO setParam) throws Exception{
+    public boolean update${className}ById(<#list table.pkColumns as column>${column.javaType} ${column.columnNameLower}</#list>,Map<String,Object> setParam) throws Exception{
     	
         logger.debug("In function : update${className}ById: <#list table.pkColumns as column>${column.columnNameLower}={}</#list>", new Object[]{<#list table.pkColumns as column>${column.columnNameLower}</#list>});
         
@@ -154,12 +139,12 @@ public class ${className}DAO {
     }   
 	</#if>
     
-    private void putWhereParam(${className}VO ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
+    private void putWhereParam(Map<String,Object> ${classNameFirstLower}VO,StringBuilder sql, Map<String, Object> paramMap){
     	if(${classNameFirstLower}VO!=null){  
         	<#list table.columns as column>
-        	<#if column.javaType=="String">if(StringUtil.isNotEmpty(${classNameFirstLower}VO.get${column.columnName}()))<#else>if(${classNameFirstLower}VO.get${column.columnName}()!=null)</#if>{
+        	if(${classNameFirstLower}VO.get("${column.columnNameLower}")!=null){
 	            sql.append("   AND ${gh.lower(column.sqlName)}=:${column.columnNameLower} ");
-	            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get${column.columnName}());
+	            paramMap.put("${column.columnNameLower}",${classNameFirstLower}VO.get("${column.columnNameLower}"));
 	        }
         	</#list>
         }
@@ -178,7 +163,7 @@ public class ${className}DAO {
     /**
      * 查询${className}记录
      */
-    public List<${className}VO> get${className}ListByParam(${className}VO ${classNameFirstLower}VO,PaginationCondition pc)throws Exception{
+    public List<${className}VO> get${className}ListByParam(Map<String,Object> ${classNameFirstLower}VO,PaginationCondition pc)throws Exception{
     	
         logger.debug("In function : get${className}ListByParam: ${classNameFirstLower}VO={},pc={}", new Object[]{${classNameFirstLower}VO,pc});
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -199,7 +184,7 @@ public class ${className}DAO {
     /**
      * 查询总数
      */
-    public int getTotal${className}ByParam(${className}VO ${classNameFirstLower}VO) throws Exception{
+    public int getTotal${className}ByParam(Map<String,Object> ${classNameFirstLower}VO) throws Exception{
     	logger.debug("In function : getTotal${className}ByParam: ${classNameFirstLower}VO={}", new Object[]{${classNameFirstLower}VO});
     	StringBuilder sql=new StringBuilder();
     	 <#if gh.fromTable>

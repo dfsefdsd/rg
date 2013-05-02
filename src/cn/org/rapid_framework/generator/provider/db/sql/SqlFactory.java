@@ -31,9 +31,9 @@ import cn.org.rapid_framework.generator.util.sqlparse.SqlParseHelper.NameWithAli
 import cn.org.rapid_framework.generator.util.typemapping.JdbcType;
 /**
  * 
- * 根据SQL语句生成Sql对象,用于代码生成器的生成<br />
+ * 鏍规嵁SQL璇彞鐢熸垚Sql瀵硅薄,鐢ㄤ簬浠ｇ爜鐢熸垚鍣ㄧ殑鐢熸垚<br />
  * 
- * 示例使用：
+ * 绀轰緥浣跨敤锛�
  * <pre>
  * Sql sql = new SqlFactory().parseSql("select * from user_info where username=#username# and password=#password#");
  * </pre>
@@ -98,9 +98,12 @@ public class SqlFactory {
 		LinkedHashSet<Column> queryColumns = new LinkedHashSet<Column>();
 		LinkedHashSet<Column> updateColumns = new LinkedHashSet<Column>();
 		LinkedHashSet<Column> columns = table.getColumns();
-		String queryFields[]=GeneratorProperties.getRequiredProperty("queryFields").trim().split(",");
-		String updateFields[]=GeneratorProperties.getRequiredProperty("updateFields").trim().split(",");
-		String byIdFields[]=GeneratorProperties.getRequiredProperty("byIdFields").trim().split(",");
+		String queryFields[]=new String[]{};;
+		if(GeneratorProperties.getProperty("queryFields")!=null){
+			queryFields=GeneratorProperties.getProperty("queryFields").trim().split(",");
+		}
+		String updateFields[]=GeneratorProperties.getProperty("updateFields").trim().split(",");
+		String byIdFields[]=GeneratorProperties.getProperty("byIdFields").trim().split(",");
 		for(Column column:columns){
 			for(int i=0;i<queryFields.length;i++){
 				if(column.getSqlName().equalsIgnoreCase(queryFields[i].trim())){
@@ -116,7 +119,7 @@ public class SqlFactory {
 		}
 		table.setQueryColumns(queryColumns);
 		
-		if(queryFields.length==0){
+		if(queryFields==null){
 			table.setQueryColumns(columns);
 		}
 		List<Column> pkColumns = new ArrayList<Column>();
@@ -177,18 +180,18 @@ public class SqlFactory {
 		private Column convert2Column(Sql sql,ResultSetMetaData metadata, int i) throws SQLException, Exception {
 			ResultSetMetaDataHolder m = new ResultSetMetaDataHolder(metadata, i);
 			if(StringHelper.isNotBlank(m.getTableName())) {
-				//FIXME 如果表有别名,将会找不到表,如 inner join user_info t1, tableName将为t1,应该转换为user_info
+				//FIXME 濡傛灉琛ㄦ湁鍒悕,灏嗕細鎵句笉鍒拌〃,濡�inner join user_info t1, tableName灏嗕负t1,搴旇杞崲涓簎ser_info
 				Table table = foundTableByTableNameOrTableAlias(sql, m.getTableName());
 				if(table == null) {
 					return newColumn(m);
 				}
 			    Column column = table.getColumnBySqlName(m.getColumnNameOrLabel());
 			    if(column == null) {
-			        //可以再尝试解析sql得到 column以解决 password as pwd找不到column问题
+			        //鍙互鍐嶅皾璇曡В鏋恠ql寰楀埌 column浠ヨВ鍐�password as pwd鎵句笉鍒癱olumn闂
 			    	//Table table, int sqlType, String sqlTypeName,String sqlName, int size, int decimalDigits, boolean isPk,boolean isNullable, boolean isIndexed, boolean isUnique,String defaultValue,String remarks
 			        column = new Column(table,m.getColumnType(),m.getColumnTypeName(),m.getColumnNameOrLabel(),m.getColumnDisplaySize(),m.getScale(),false,false,false,false,null,null);
 			        GLogger.trace("not found column:"+m.getColumnNameOrLabel()+" on table:"+table.getSqlName()+" "+BeanHelper.describe(column));
-			        //isInSameTable以此种判断为错误
+			        //isInSameTable浠ユ绉嶅垽鏂负閿欒
 			    }else {
 			    	GLogger.trace("found column:"+m.getColumnNameOrLabel()+" on table:"+table.getSqlName()+" "+BeanHelper.describe(column));
 			    }
@@ -250,14 +253,14 @@ public class SqlFactory {
 				if(column == null) {
 					column = specialParametersMapping.get(paramName);
 					if(column == null) {
-						//FIXME 不能猜测的column类型
+						//FIXME 涓嶈兘鐚滄祴鐨刢olumn绫诲瀷
 						column = new Column(null,JdbcType.UNDEFINED.TYPE_CODE,"UNDEFINED",paramName,0,0,false,false,false,false,null,null);
 					}
 				}
 				SqlParameter param = new SqlParameter(column);
 				
 				param.setParamName(paramName);
-				if(isMatchListParam(sql.getSourceSql(), paramName)) { //FIXME 只考虑(:username)未考虑(#inUsernames#) and (#{inPassword}),并且可以使用 #inUsername[]#
+				if(isMatchListParam(sql.getSourceSql(), paramName)) { //FIXME 鍙�铏�:username)鏈�铏�#inUsernames#) and (#{inPassword}),骞朵笖鍙互浣跨敤 #inUsername[]#
 					param.setListParam(true);
 				}
 				result.add(param);			
@@ -275,7 +278,7 @@ public class SqlFactory {
 		private Column findColumnByParamName(ParsedSql parsedSql,Sql sql, String paramName) throws Exception {
 			Column column = sql.getColumnByName(paramName);
 			if(column == null) {
-				//FIXME 还未处理 t.username = :username的t前缀问题
+				//FIXME 杩樻湭澶勭悊 t.username = :username鐨則鍓嶇紑闂
 				column = findColumnByParseSql(parsedSql, SqlParseHelper.getColumnNameByRightCondition(parsedSql.toString(), paramName) );
 			}
 			if(column == null) {

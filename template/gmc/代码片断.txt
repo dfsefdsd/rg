@@ -7,4 +7,8 @@
 	${column.javaType} ${column.columnNameLower}=null;
 	</#list>
 	
+	<#list table.columns as column>
+	setParam.put("${column.columnNameLower}",${classNameFirstLower}VO.get${column.columnName}());
+	</#list>
+	
 	还可用table.queryColumns，table.updateColumns,table.primaryKeyColumns,table.notPkColumns

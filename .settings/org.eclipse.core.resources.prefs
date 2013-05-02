@@ -1,4 +1,10 @@
-#Thu Jul 26 14:16:08 CST 2012
+#Sat Apr 13 23:11:25 CST 2013
 eclipse.preferences.version=1
 encoding//src/cn/org/rapid_framework/generator/GeneratorMain.java=UTF-8
+encoding//src/cn/org/rapid_framework/generator/provider/db/sql/SqlFactory.java=UTF-8
+encoding//src/cn/org/rapid_framework/generator/provider/db/table/TableFactory.java=UTF-8
+encoding//src/cn/org/rapid_framework/generator/swing/mainFrame.java=UTF-8
+encoding//template/gmc/mysql/${className}DAO.java=UTF-8
+encoding//template/gmc/mysql/${className}Service.java=UTF-8
+encoding//template/gmc/mysql/${className}ServiceRemote.java=UTF-8
 encoding/<project>=UTF-8

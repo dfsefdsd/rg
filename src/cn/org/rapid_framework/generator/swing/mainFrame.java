@@ -778,6 +778,9 @@ public class mainFrame extends javax.swing.JFrame {
 		}
 
 		this.generator.setEnabled(false);
+		this.queryFieldsFocusLost(null);
+		this.updateFieldsFocusLost(null);
+		this.byIdFieldsFocusLost(null);
 		try {
 			GeneratorUtil.setFromTable(true);
 			GeneratorFacade g = new GeneratorFacade();
