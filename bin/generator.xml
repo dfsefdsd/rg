@@ -47,12 +47,12 @@
 	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
 		-->
 	<!-- Mysql -->
-		<entry key="jdbc.username">root</entry>
-	<entry key="jdbc.password">root</entry>
-	<entry key="jdbc.url">jdbc:mysql://localhost:3306/online_focus?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+		<entry key="jdbc.username">app_gc</entry>
+	<entry key="jdbc.password">appgc2013</entry>
+	<entry key="jdbc.url">jdbc:mysql://192.168.86.40:3306/gm_gc?useUnicode=true&amp;characterEncoding=UTF-8</entry>
 	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
 	
-		<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
+
 	<entry key="namespace">pages</entry>
 	<entry key="sql">select * from stock_base_info i where 1=1 </entry>
 	<entry key="byIdFields">table_id</entry>
@@ -74,11 +74,12 @@
 	<entry key="methodName"></entry>
 	
 
-	<!-- Oracle 	jdbc:oracle:oci:@tnsname_devdb-->
-<!-- 	
-	<entry key="jdbc.username">APP_VO</entry>
-	<entry key="jdbc.password">APP_VO</entry>
-	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.16:1521:core01</entry>
+	<!-- Oracle 	
+		jdbc:oracle:oci:@tnsname_devdb
+	
+	<entry key="jdbc.username">app_vo2</entry>
+	<entry key="jdbc.password">abc12344444</entry>
+	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.86.15:1521:core01</entry>
 	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry> 
 		
 	<entry key="namespace">pages</entry>
@@ -101,7 +102,7 @@
 	<entry key="updateFields">table_name</entry>
 	<entry key="methodName">111</entry>
 	-->
-	
+
 	
 	<!-- SQLServer2000 
 	<entry key="jdbc.url">jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=[database]</entry>
