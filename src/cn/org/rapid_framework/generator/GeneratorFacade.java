@@ -21,6 +21,7 @@ import cn.org.rapid_framework.generator.util.BeanHelper;
 import cn.org.rapid_framework.generator.util.GLogger;
 import cn.org.rapid_framework.generator.util.GeneratorException;
 import cn.org.rapid_framework.generator.util.typemapping.DatabaseTypeUtils;
+import cn.tableinterface.generator.GeneratorInteface;
 /**
  * 
  * @author badqiu
@@ -58,6 +59,10 @@ public class GeneratorFacade {
 	
     public void generateByTable(String tableName,String templateRootDir) throws Exception {
     	new ProcessUtils().processByTable(tableName,templateRootDir,false);
+	}
+    
+    public void generateByExcel(String tableName,String templateRootDir) throws Exception {
+    	new ProcessUtils().processByExcel(tableName,templateRootDir,false);
 	}
 
     public void deleteByTable(String tableName,String templateRootDir) throws Exception {
@@ -162,7 +167,17 @@ public class GeneratorFacade {
     		}catch(GeneratorException ge) {
     			PrintUtils.printExceptionsSumary(ge.getMessage(),getGenerator(templateRootDir).getOutRootDir(),ge.getExceptions());
     		}
-    	}    
+    	}   
+        
+        public void processByExcel(String tableName,String templateRootDir,boolean isDelete) throws Exception {
+    		Generator g = getGenerator(templateRootDir);
+  
+    		try {
+    			processByExcel(g,tableName,isDelete);
+    		}catch(GeneratorException ge) {
+    			PrintUtils.printExceptionsSumary(ge.getMessage(),getGenerator(templateRootDir).getOutRootDir(),ge.getExceptions());
+    		}
+    	}   
         
 		public void processByAllTable(String templateRootDir,boolean isDelete) throws Exception {
 			List<Table> tables = TableFactory.getInstance().getAllTables();
@@ -185,6 +200,14 @@ public class GeneratorFacade {
 	        else 
 	        	g.generateBy(m.templateModel,m.filePathModel);
 	    }        
+		
+		public void processByExcel(Generator g, String table,boolean isDelete) throws Exception {
+	        GeneratorModel m = GeneratorModelUtils.newFromExcel(table);
+	        if(isDelete)
+	        	g.deleteBy(m.templateModel,m.filePathModel);
+	        else 
+	        	g.generateBy(m.templateModel,m.filePathModel);
+	    }  
     }
 	
     @SuppressWarnings("all")
@@ -198,6 +221,17 @@ public class GeneratorFacade {
 			Map filePathModel = new HashMap();
 			setShareVars(filePathModel);
 			filePathModel.putAll(BeanHelper.describe(table));
+			return new GeneratorModel(templateModel,filePathModel);
+		}
+		
+		public static GeneratorModel newFromExcel(String filePath) {
+			Map templateModel = new HashMap();
+			GeneratorInteface g=new GeneratorInteface();
+			templateModel.put("excel", g.generatorFormExcel(filePath));
+			setShareVars(templateModel);
+			
+			Map filePathModel = new HashMap();
+			setShareVars(filePathModel);
 			return new GeneratorModel(templateModel,filePathModel);
 		}
 

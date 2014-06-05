@@ -1,7 +1,9 @@
 package cn.org.rapid_framework.generator;
 
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -207,5 +209,20 @@ public class GeneratorUtil {
 	
 	public static void setFromTable(boolean flag){
 		fromTable= flag;
+	}
+
+	public String getValue(Map<String,Object> map,String key){
+		return map.get(key).toString();
+	}
+	
+	public Object invoke(Object obj,String method){
+		try{
+			 Method m=obj.getClass().getMethod(method);
+			 m.setAccessible(true);
+			 return m.invoke(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -22,7 +22,7 @@ public class ${className}DAO {
 	
 	private static Logger logger = LoggerFactory.getLogger(${className}DAO.class); 
     @Autowired
-    private BaseDao baseDao;
+    private GcBaseDao baseDao;
     <#if gh.fromTable>
 
     
@@ -62,7 +62,7 @@ public class ${className}DAO {
 
         logger.debug(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         
-        boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
+        boolean result=baseDao.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap)>0?true:false;
 
         logger.debug("End function : add${className}");
 
@@ -86,7 +86,7 @@ public class ${className}DAO {
         
         logger.debug(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         
-        boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
+        boolean result=baseDao.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap)>0?true:false;
 
         logger.debug("End function : delete${className}ById");
         return result;
@@ -108,7 +108,7 @@ public class ${className}DAO {
 
         logger.debug(" About to execute sql={} setParam={},whereParam={}", new Object[]{sql.toString(), paramMap,whereParam});
         
-        boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
+        boolean result=baseDao.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap)>0?true:false;
 
         logger.debug("End function : update${className}ByParam");
         return result;
@@ -132,7 +132,7 @@ public class ${className}DAO {
         </#list>
         logger.debug(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
         
-        boolean result=baseDao.namedParameterJdbcTemplate.update(sql.toString(), paramMap)>0?true:false;
+        boolean result=baseDao.getNamedParameterJdbcTemplate().update(sql.toString(), paramMap)>0?true:false;
 
         logger.debug("End function : update${className}ById");
         return result;
@@ -174,7 +174,7 @@ public class ${className}DAO {
         putWhereParam(${classNameFirstLower}VO,sql,paramMap);
         String sqlstr=PaginationParams.convertSqlStatement(sql.toString(), pc, paramMap);
         logger.debug(" About to execute sql={} paramMap={}", new Object[]{sqlstr, paramMap});
-        List<${className}VO> result = baseDao.namedParameterJdbcTemplate.query(sqlstr, paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));  
+        List<${className}VO> result = baseDao.getNamedParameterJdbcTemplate().query(sqlstr, paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));  
         
         logger.debug("End function : get${className}ListByParam");
         return result;
@@ -196,7 +196,7 @@ public class ${className}DAO {
     	putWhereParam(${classNameFirstLower}VO,sql,paramMap);
     	//查询记录总数
         logger.debug(" About to execute sql={} paramMap={}",new Object[]{sql.toString(), paramMap});
-        int result = baseDao.namedParameterJdbcTemplate.queryForInt(sql.toString(), paramMap);
+        int result = baseDao.getNamedParameterJdbcTemplate().queryForInt(sql.toString(), paramMap);
         
         logger.debug(" End Function: getTotal${className}ByParam");
         return result;
@@ -217,7 +217,7 @@ public class ${className}DAO {
         paramMap.put("${column.columnNameLower}", ${column.columnNameLower});
         </#list>
         logger.debug(" About to execute sql={} paramMap={}", new Object[]{sql.toString(), paramMap});
-        ${className}VO result = baseDao.namedParameterJdbcTemplate.queryForObject(sql.toString(), paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));   
+        ${className}VO result = baseDao.getNamedParameterJdbcTemplate().queryForObject(sql.toString(), paramMap, new BeanPropertyRowMapper<${className}VO>(${className}VO.class));   
         logger.debug("End function : get${className}ById");
         return result;
     }

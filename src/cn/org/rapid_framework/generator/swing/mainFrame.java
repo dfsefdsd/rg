@@ -81,6 +81,10 @@ public class mainFrame extends javax.swing.JFrame {
 		countSql = new javax.swing.JTextArea();
 		jLabel11 = new javax.swing.JLabel();
 		byIdFields = new javax.swing.JTextField();
+		jPanel6 = new javax.swing.JPanel();
+		genInterface = new javax.swing.JButton();
+		excel = new javax.swing.JTextField();
+		jLabel13 = new javax.swing.JLabel();
 		jPanel3 = new javax.swing.JPanel();
 		jPanel2 = new javax.swing.JPanel();
 		jLabel2 = new javax.swing.JLabel();
@@ -164,7 +168,8 @@ public class mainFrame extends javax.swing.JFrame {
 														.addGroup(
 																jPanel1Layout
 																		.createSequentialGroup()
-																		.addGap(361,
+																		.addGap(
+																				361,
 																				361,
 																				361)
 																		.addComponent(
@@ -206,7 +211,7 @@ public class mainFrame extends javax.swing.JFrame {
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
 																				684,
 																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addContainerGap(113, Short.MAX_VALUE)));
+										.addContainerGap(213, Short.MAX_VALUE)));
 		jPanel1Layout
 				.setVerticalGroup(jPanel1Layout
 						.createParallelGroup(
@@ -247,7 +252,8 @@ public class mainFrame extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																								23,
 																								Short.MAX_VALUE))
-																		.addGap(18,
+																		.addGap(
+																				18,
 																				18,
 																				18)
 																		.addGroup(
@@ -261,12 +267,14 @@ public class mainFrame extends javax.swing.JFrame {
 																								javax.swing.GroupLayout.PREFERRED_SIZE,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																								javax.swing.GroupLayout.PREFERRED_SIZE))
-																		.addGap(186,
+																		.addGap(
+																				186,
 																				186,
 																				186)
 																		.addComponent(
 																				generator)
-																		.addGap(79,
+																		.addGap(
+																				79,
 																				79,
 																				79)))));
 
@@ -331,12 +339,12 @@ public class mainFrame extends javax.swing.JFrame {
 																								jScrollPane2,
 																								javax.swing.GroupLayout.Alignment.LEADING,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								841,
+																								945,
 																								Short.MAX_VALUE)
 																						.addComponent(
 																								jScrollPane1,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								841,
+																								945,
 																								Short.MAX_VALUE)
 																						.addGroup(
 																								javax.swing.GroupLayout.Alignment.LEADING,
@@ -360,7 +368,8 @@ public class mainFrame extends javax.swing.JFrame {
 														.addGroup(
 																jPanel4Layout
 																		.createSequentialGroup()
-																		.addGap(339,
+																		.addGap(
+																				339,
 																				339,
 																				339)
 																		.addComponent(
@@ -406,11 +415,86 @@ public class mainFrame extends javax.swing.JFrame {
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(generateBysql)
-										.addContainerGap(
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)));
+										.addContainerGap(18, Short.MAX_VALUE)));
 
 		jTabbedPane1.addTab("\u7531SQL\u751f\u6210", jPanel4);
+
+		genInterface.setText("\u751f\u6210\u63a5\u53e3");
+		genInterface.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				genInterfaceActionPerformed(evt);
+			}
+		});
+
+		excel.setText("D:/intefface.xls");
+
+		jLabel13.setText("excel\u6587\u4ef6\u8def\u5f84:");
+
+		javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(
+				jPanel6);
+		jPanel6.setLayout(jPanel6Layout);
+		jPanel6Layout
+				.setHorizontalGroup(jPanel6Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel6Layout
+										.createSequentialGroup()
+										.addGroup(
+												jPanel6Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(
+																jPanel6Layout
+																		.createSequentialGroup()
+																		.addGap(
+																				307,
+																				307,
+																				307)
+																		.addComponent(
+																				genInterface))
+														.addGroup(
+																jPanel6Layout
+																		.createSequentialGroup()
+																		.addGap(
+																				35,
+																				35,
+																				35)
+																		.addComponent(
+																				jLabel13)
+																		.addGap(
+																				18,
+																				18,
+																				18)
+																		.addComponent(
+																				excel,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				464,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addContainerGap(364, Short.MAX_VALUE)));
+		jPanel6Layout
+				.setVerticalGroup(jPanel6Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel6Layout
+										.createSequentialGroup()
+										.addGap(50, 50, 50)
+										.addGroup(
+												jPanel6Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jLabel13)
+														.addComponent(
+																excel,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGap(84, 84, 84).addComponent(
+												genInterface).addContainerGap(
+												169, Short.MAX_VALUE)));
+
+		jTabbedPane1.addTab("\u751f\u6210\u63a5\u53e3", jPanel6);
 
 		jLabel2.setText("\u8868\u540d:");
 
@@ -525,7 +609,7 @@ public class mainFrame extends javax.swing.JFrame {
 												javax.swing.GroupLayout.PREFERRED_SIZE,
 												72,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(22, Short.MAX_VALUE)));
+										.addContainerGap(132, Short.MAX_VALUE)));
 		jPanel2Layout
 				.setVerticalGroup(jPanel2Layout
 						.createParallelGroup(
@@ -603,7 +687,7 @@ public class mainFrame extends javax.swing.JFrame {
 												javax.swing.GroupLayout.PREFERRED_SIZE,
 												686,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(128, Short.MAX_VALUE)));
+										.addContainerGap(226, Short.MAX_VALUE)));
 		jPanel3Layout
 				.setVerticalGroup(jPanel3Layout
 						.createParallelGroup(
@@ -644,13 +728,13 @@ public class mainFrame extends javax.swing.JFrame {
 		jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
 				jPanel5Layout.createSequentialGroup().addContainerGap()
-						.addComponent(result)
-						.addContainerGap(830, Short.MAX_VALUE)));
+						.addComponent(result).addContainerGap(918,
+								Short.MAX_VALUE)));
 		jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
 				jPanel5Layout.createSequentialGroup().addContainerGap()
-						.addComponent(result)
-						.addContainerGap(26, Short.MAX_VALUE)));
+						.addComponent(result).addContainerGap(26,
+								Short.MAX_VALUE)));
 
 		jMenu3.setText("File");
 		jMenuBar2.add(jMenu3);
@@ -663,44 +747,48 @@ public class mainFrame extends javax.swing.JFrame {
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		layout.setHorizontalGroup(layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addGroup(
-						layout.createSequentialGroup()
-								.addComponent(jTabbedPane1,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										870, Short.MAX_VALUE).addContainerGap())
-				.addGroup(
-						layout.createSequentialGroup()
-								.addComponent(jPanel5,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE).addContainerGap()));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addComponent(jPanel3,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jTabbedPane1,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										375,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jPanel5,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
+						layout.createSequentialGroup().addComponent(
+								jTabbedPane1,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 970,
+								Short.MAX_VALUE).addContainerGap()).addGroup(
+						layout.createSequentialGroup().addComponent(jPanel5,
+								javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE).addContainerGap()));
+		layout
+				.setVerticalGroup(layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								layout
+										.createSequentialGroup()
+										.addComponent(
+												jPanel3,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(
+												jTabbedPane1,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												375,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(
+												jPanel5,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)));
 
 		jTabbedPane1.getAccessibleContext()
 				.setAccessibleName("generateBytable");
@@ -708,6 +796,42 @@ public class mainFrame extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>
 	//GEN-END:initComponents
+
+	private void genInterfaceActionPerformed(java.awt.event.ActionEvent evt) {
+
+		String path = this.excel.getText();
+		if(path==null){
+			this.result.setText("路径不能为空");
+			return;
+		}
+		File f=new File(path); 
+		if(!f.exists()||f.isDirectory()){
+			this.result.setText("路径不合法");
+			return;
+		}
+		this.genInterface.setEnabled(false);
+		this.queryFieldsFocusLost(null);
+		this.updateFieldsFocusLost(null);
+		this.byIdFieldsFocusLost(null);
+		try {
+			GeneratorUtil.setFromTable(false);
+			GeneratorFacade g = new GeneratorFacade();
+			g.deleteOutRootDir();
+
+			g.generateByExcel(path, "template/excel");
+			//打开文件夹
+			Runtime.getRuntime().exec(
+					"cmd.exe /c start "
+							+ GeneratorProperties
+									.getRequiredProperty("outRoot"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.result.setText(e.getMessage());
+		} //删除生成器的输出目录
+		this.genInterface.setEnabled(true);
+		this.result.setText("已生成");
+	}
 
 	private void methodNameFocusLost(java.awt.event.FocusEvent evt) {
 		GeneratorProperties.getProperties().setProperty("methodName",
@@ -806,7 +930,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private void copyFiles(String tableName) {
 		if (this.autoGenFile.isSelected() == true) {
 			Table table = TableFactory.getInstance().getTable(tableName);
-			
+
 			String mvoRoot = GeneratorProperties.getRequiredProperty("mvoRoot");
 			String soaRoot = GeneratorProperties.getRequiredProperty("soaRoot");
 
@@ -832,7 +956,9 @@ public class mainFrame extends javax.swing.JFrame {
 
 			afile = new HashMap<String, String>();
 			afile.put("file", "ServiceRemoteTest.java");
-			afile.put("path", "\\test\\com\\gm\\soa\\remote\\"+ GeneratorProperties.getRequiredProperty("soaCorePackage")+ "\\");
+			afile.put("path", "\\test\\com\\gm\\soa\\remote\\"
+					+ GeneratorProperties.getRequiredProperty("soaCorePackage")
+					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
 
@@ -843,7 +969,7 @@ public class mainFrame extends javax.swing.JFrame {
 					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
+
 			afile = new HashMap<String, String>();
 			afile.put("file", "DAOTest.java");
 			afile.put("path", "\\test\\com\\gm\\soa\\dao\\"
@@ -859,40 +985,32 @@ public class mainFrame extends javax.swing.JFrame {
 					+ "\\");
 			afile.put("root", soaRoot);
 			fileList.add(afile);
-			
-			moveFiles(fileList, "soa", table);
 
-			
+			moveFiles(fileList, "soa", table);
 
 			//处理vo文件
 			fileList = new ArrayList<Map<String, String>>();
 			afile = new HashMap<String, String>();
 			afile.put("file", "Controller.java");
-			afile.put(
-					"path",
-					"\\"
-							+ GeneratorProperties
-									.getRequiredProperty("mvoPackage")
-							+ "\\controller\\");
+			afile.put("path", "\\"
+					+ GeneratorProperties.getRequiredProperty("mvoPackage")
+					+ "\\controller\\");
 			afile.put("root", mvoRoot);
 			fileList.add(afile);
 
 			afile = new HashMap<String, String>();
 			afile.put("file", "Service.java");
-			afile.put(
-					"path",
-					"\\"
-							+ GeneratorProperties
-									.getRequiredProperty("mvoPackage")
-							+ "\\service\\");
+			afile.put("path", "\\"
+					+ GeneratorProperties.getRequiredProperty("mvoPackage")
+					+ "\\service\\");
 			afile.put("root", mvoRoot);
 			fileList.add(afile);
-			
+
 			afile = new HashMap<String, String>();
 			afile.put("file", "ServiceImpl.java");
-			afile.put(
-					"path","\\"+ GeneratorProperties.getRequiredProperty("mvoPackage")
-							+ "\\service\\impl\\");
+			afile.put("path", "\\"
+					+ GeneratorProperties.getRequiredProperty("mvoPackage")
+					+ "\\service\\impl\\");
 			afile.put("root", mvoRoot);
 			fileList.add(afile);
 			moveFiles(fileList, "vo", table);
@@ -900,11 +1018,12 @@ public class mainFrame extends javax.swing.JFrame {
 		}
 	}
 
-	private void moveFiles(List<Map<String, String>> fileList,String floder,Table table){
+	private void moveFiles(List<Map<String, String>> fileList, String floder,
+			Table table) {
 		String outRoot = GeneratorProperties.getRequiredProperty("outRoot");
 		for (Map<String, String> fileMap : fileList) {
-			File file = new File(outRoot + "\\"+floder+"\\" + table.getClassName()
-					+ fileMap.get("file"));
+			File file = new File(outRoot + "\\" + floder + "\\"
+					+ table.getClassName() + fileMap.get("file"));
 			if (file.exists()) {
 				String dest = fileMap.get("root") + fileMap.get("path")
 						+ table.getClassName() + fileMap.get("file");
@@ -913,20 +1032,22 @@ public class mainFrame extends javax.swing.JFrame {
 					if ((this.coverFile.isSelected() == true)) {
 						destFile.delete();
 						file.renameTo(destFile);
-						System.out.println(file.getAbsolutePath()+" is move to "+destFile.getAbsolutePath());
+						System.out.println(file.getAbsolutePath()
+								+ " is move to " + destFile.getAbsolutePath());
 					}
 
 				} else {
-					if(destFile.mkdirs()){  
+					if (destFile.mkdirs()) {
 						file.renameTo(destFile);
-						System.out.println(file.getAbsolutePath()+" is move to "+destFile.getAbsolutePath());
+						System.out.println(file.getAbsolutePath()
+								+ " is move to " + destFile.getAbsolutePath());
 					}
 				}
-				
+
 			}
 		}
 	}
-	
+
 	private void generateBysqlActionPerformed(java.awt.event.ActionEvent evt) {
 		String tableName = this.table.getText().trim();
 		String sql = this.sql.getText().trim();
@@ -986,12 +1107,15 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField byIdFields;
 	private javax.swing.JTextArea countSql;
 	private javax.swing.JRadioButton coverFile;
+	private javax.swing.JTextField excel;
+	private javax.swing.JButton genInterface;
 	private javax.swing.JButton generateBysql;
 	private javax.swing.JButton generator;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
 	private javax.swing.JLabel jLabel11;
 	private javax.swing.JLabel jLabel12;
+	private javax.swing.JLabel jLabel13;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
@@ -1011,6 +1135,7 @@ public class mainFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel3;
 	private javax.swing.JPanel jPanel4;
 	private javax.swing.JPanel jPanel5;
+	private javax.swing.JPanel jPanel6;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JTabbedPane jTabbedPane1;
