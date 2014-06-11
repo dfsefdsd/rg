@@ -47,9 +47,9 @@
 	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
 		-->
 	<!-- Mysql -->
-		<entry key="jdbc.username">app_gc</entry>
-	<entry key="jdbc.password">appgc2013</entry>
-	<entry key="jdbc.url">jdbc:mysql://192.168.86.40:3306/gm_gc?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+		<entry key="jdbc.username">root</entry>
+	<entry key="jdbc.password">root</entry>
+	<entry key="jdbc.url">jdbc:mysql://127.0.0.1:3306/tianya_travel?useUnicode=true&amp;characterEncoding=UTF-8</entry>
 	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
 	
 
