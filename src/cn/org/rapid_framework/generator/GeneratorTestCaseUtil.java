@@ -5,25 +5,16 @@ import java.util.List;
 
 
 public class GeneratorTestCaseUtil {
-
-	// case矩阵
-	private Object[][] metaData;
-	//取最大值是的case
-	private int[] maxCase;
 	
-	public GeneratorTestCaseUtil(Object[][] metaData){
-		this.metaData=metaData;
-		maxCase=new int[metaData.length];
-		for (int i=0; i<maxCase.length;i++) {
-			maxCase[i]=metaData[i].length;
-		}
+	public GeneratorTestCaseUtil(){
+
 	}
     /**
      * 取得所有的case的下标
      * @param maxCase like "11"
      * @return
      */
-	public List<int[]> getCaseIndex(){
+	private static List<int[]> getCaseIndex(int[] maxCase){
 		List<int[]> result=new ArrayList<int[]>();
 		int cases[]=new int[maxCase.length];
 		int times=1;
@@ -33,7 +24,7 @@ public class GeneratorTestCaseUtil {
 		}
 		result.add(cases.clone());
 		for(int i=0;i<times;i++){
-			if(increase(cases,0)){
+			if(increase(maxCase,cases,0)){
 				result.add(cases.clone());
 			}
 		}
@@ -45,13 +36,13 @@ public class GeneratorTestCaseUtil {
 	 * @param index
 	 * @return
 	 */
-	private boolean increase(int[] acase,int index){
+	private static boolean increase(int[] maxCase,int[] acase,int index){
 		if(index>=acase.length){
 			return false;
 		}
 		//达到最大值时进一
 		if(acase[index]==maxCase[index]-1){
-			if(increase(acase, index+1)){
+			if(increase(maxCase,acase, index+1)){
 				acase[index]=0;
 			}else{
 				return false;
@@ -62,8 +53,12 @@ public class GeneratorTestCaseUtil {
 		return true;
 	}
 	
-	public Object [][] getCase(){
-		List<int[]> caseIndex=getCaseIndex();
+	public static Object [][] getCase(Object[][] metaData){
+		int[] maxCase=new int[metaData.length];
+		for (int i=0; i<maxCase.length;i++) {
+			maxCase[i]=metaData[i].length;
+		}
+		List<int[]> caseIndex=getCaseIndex(maxCase);
 		List<Object[]> result=new ArrayList<Object[]>();
 		for (int[] ci : caseIndex) {
 			Object[] acase=new Object[ci.length];
@@ -111,7 +106,7 @@ public class GeneratorTestCaseUtil {
 				{ null, "test4" },
 				{ null },
 				};
-		Object[][]  cases=new GeneratorTestCaseUtil(metaData).getCase();
+		Object[][]  cases= GeneratorTestCaseUtil.getCase(metaData);
 		System.out.println(ObjectArraytoString(cases));
 	}
 }
