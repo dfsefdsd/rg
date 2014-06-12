@@ -19,7 +19,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="GMC&#x4ee3;&#x7801;&#x751f;&#x6210;&#x5668;"/>
+    <Property name="title" type="java.lang.String" value="&#x4ee3;&#x7801;&#x751f;&#x6210;&#x5668;"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>

@@ -14,7 +14,7 @@ public class GeneratorTestCaseUtil {
      * @param maxCase like "11"
      * @return
      */
-	private static List<int[]> getCaseIndex(int[] maxCase){
+	private static List<int[]> getCaseIndex(int[] maxCase,TC[][] metaData){
 		List<int[]> result=new ArrayList<int[]>();
 		int cases[]=new int[maxCase.length];
 		int times=1;
@@ -22,13 +22,37 @@ public class GeneratorTestCaseUtil {
 		for (int i : maxCase) {
 			times=times*i;
 		}
-		result.add(cases.clone());
+		if(checkIfAdd(cases,metaData)){
+			result.add(cases.clone());
+		}
 		for(int i=0;i<times;i++){
 			if(increase(maxCase,cases,0)){
-				result.add(cases.clone());
+				if(checkIfAdd(cases,metaData)){
+					result.add(cases.clone());
+				}
 			}
 		}
 		return result;
+	}
+	/**
+	 * 检查某个用例是否需要加到用例集中
+	 * @param cases
+	 * @param metaDataTimes
+	 * @return
+	 */
+	private static boolean checkIfAdd(int[] cases,TC[][] metaData){
+		for(int i=0;i<cases.length;i++){
+			if(metaData[i][cases[i]].getTimes()<0){
+				continue;
+			}
+			if(metaData[i][cases[i]].getTimes()==0){//如果不再需要用例，则返回false，不加到用例集中
+				return false;
+			}else{
+				metaData[i][cases[i]].setTimes(metaData[i][cases[i]].getTimes()-1);
+				return true;
+			}
+		}
+		return true;
 	}
 	/**
 	 * case下标加一
@@ -52,18 +76,22 @@ public class GeneratorTestCaseUtil {
 		}
 		return true;
 	}
-	
-	public static Object [][] getCase(Object[][] metaData){
+	/**
+	 * 从元素据获取用例
+	 * @param metaData
+	 * @return
+	 */
+	public static Object [][] getCase(TC[][] metaData){
 		int[] maxCase=new int[metaData.length];
 		for (int i=0; i<maxCase.length;i++) {
 			maxCase[i]=metaData[i].length;
 		}
-		List<int[]> caseIndex=getCaseIndex(maxCase);
+		List<int[]> caseIndex=getCaseIndex(maxCase,metaData);
 		List<Object[]> result=new ArrayList<Object[]>();
 		for (int[] ci : caseIndex) {
 			Object[] acase=new Object[ci.length];
 			for(int i=0;i<ci.length;i++){
-				acase[i]=metaData[i][ci[i]];
+				acase[i]=metaData[i][ci[i]].getObj();
 			}
 			result.add(acase);
 		}
@@ -101,12 +129,25 @@ public class GeneratorTestCaseUtil {
 	}
 	
 	public static void main(String []args){
-		Object[][] metaData=new Object[][] {
-				{ null, "test2" },
-				{ null, "test4" },
-				{ null },
+		
+		TC[][] metaData=new TC[][] {
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1),new TC(1,-1)},
+				{new TC(null,-1)},
+				{new TC(null,-1)},
+				{new TC(null,1),new TC(1,-1),new TC(0,-1)},
+				{new TC(1,-1)},
+				{new TC(20,-1)},
+				{new TC(null,1),new TC(1,-1),new TC(0,-1)}
 				};
 		Object[][]  cases= GeneratorTestCaseUtil.getCase(metaData);
 		System.out.println(ObjectArraytoString(cases));
+		System.out.println("用例集个数："+cases.length);
 	}
 }

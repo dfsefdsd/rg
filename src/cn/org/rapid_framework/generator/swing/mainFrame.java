@@ -111,7 +111,7 @@ public class mainFrame extends javax.swing.JFrame {
 		jMenu4 = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("GMC\u4ee3\u7801\u751f\u6210\u5668");
+		setTitle("\u4ee3\u7801\u751f\u6210\u5668");
 
 		jPanel1.setToolTipText("\u7531\u8868\u751f\u6210");
 
@@ -800,12 +800,12 @@ public class mainFrame extends javax.swing.JFrame {
 	private void genInterfaceActionPerformed(java.awt.event.ActionEvent evt) {
 
 		String path = this.excel.getText();
-		if(path==null){
+		if (path == null) {
 			this.result.setText("路径不能为空");
 			return;
 		}
-		File f=new File(path); 
-		if(!f.exists()||f.isDirectory()){
+		File f = new File(path);
+		if (!f.exists() || f.isDirectory()) {
 			this.result.setText("路径不合法");
 			return;
 		}

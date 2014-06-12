@@ -67,7 +67,7 @@
 	<entry key="soaSrcPackage"></entry>
 	<entry key="sequenceName"></entry>
 	<entry key="autoGenFile">true</entry>
-	<entry key="tableName">stock_base_info</entry>
+	<entry key="tableName">hotel_detail</entry>
 	<entry key="coverFile">true</entry>
 	<entry key="queryFields"></entry>
 	<entry key="updateFields">eastmoneyBarUrl,eastmoneyComment,earningsRatio</entry>
